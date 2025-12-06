@@ -21,9 +21,7 @@ const Hero = () => {
             <p className="text-4xl max-w-80 tracking-wider font-semibold">
               INDOOR PLANTS & FLOWERS
             </p>
-            {/* <Button to="/" w="max-w-80">
-                            Show Now
-                        </Button> */}
+
             <button className="text-[#f5f5f5] py-3 px-6 bg-[#1B1B1B] text-center w-full">
               Show now
             </button>
@@ -43,7 +41,6 @@ const Hero = () => {
           <button className="text-[#f5f5f5] py-3 px-6 bg-[#1B1B1B] text-center w-full">
             Show now
           </button>
-          <button>Show Now</button>
         </div>
       </div>
     </div>
