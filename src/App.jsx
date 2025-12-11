@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-
+import DetailsTumbuhan from "./pages/DetailsTumbuhan";
 
 function App() {
   return (
@@ -16,7 +16,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-
+          {/* Detail Tanaman */}
+          <Route path="/detail-tumbuhan" element={<DetailsTumbuhan />} />
         </Routes>
       </div>
 
