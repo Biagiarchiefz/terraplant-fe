@@ -1,16 +1,17 @@
 import PlantDetail from "../components/PlantDetail";
+import ficusImg from "../assets/Images/ficus.jpg";
 
 const DetailsTumbuhan = () => {
   const plants = [
-    {
-      name: "Ficus Lirata",
-      image: "/assets/ficus.jpg",
-      description: "Ficus Lirata is a popular indoor plant...",
-      height: 80,
-      price: "Rp.60.000",
-    },
-  ];
-
+  {
+    name: "Ficus Lirata",
+    image: ficusImg,
+    description: "Ficus Lirata is a popular indoor plant...",
+    height: 75,
+    price: "Rp.60.000",
+  },
+];
+  
   return (
     <div>
       {plants.map((item, index) => (
