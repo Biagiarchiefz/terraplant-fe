@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import Features from "../components/Features";
 import NewsLetter from "../components/NewsLetter";
 import AboutCompany from "../components/AboutCompany";
-import Footer from "../components/Footer";
+
 
 const Home = () => {
   return (
@@ -17,7 +17,6 @@ const Home = () => {
       <CatalogPlants />
       <NewsLetter />
       <AboutCompany />
-      <Footer />
     </>
   );
 };
