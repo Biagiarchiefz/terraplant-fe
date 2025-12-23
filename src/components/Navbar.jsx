@@ -10,7 +10,7 @@ const Navbar = () => {
     const navLinks = [
         {
             name: "Catalog",
-            path: "/"
+            path: "/catalog"
         },
         {
             name: "Payment",

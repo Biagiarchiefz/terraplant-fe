@@ -2,8 +2,9 @@ import { Routes, Route } from "react-router";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Plant from "./pages/Plant";
+import PlantDetail from "./pages/PlantDetail";
 import Layout from "./components/Layout";
+import Catalog from "./pages/Catalog";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
          <Route element={<Layout />}>
             {/* Landing Page */}
             <Route path="/" element={<Home />} />
-            <Route path="/plant/:id" element={<Plant />} />
+            <Route path="/plant/:id" element={<PlantDetail />} />
+            <Route path="/Catalog" element={< Catalog/>} />
           </Route>
 
           {/* Auth */}
