@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import OrderList from "./pages/OrderList";
+import OrderDetail from "./pages/OrderDetail";
 
 
 
@@ -31,6 +32,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-list" element={<OrderList />} />
+            <Route path="/orders/:id" element={<OrderDetail />} />
 
           </Route>
 
