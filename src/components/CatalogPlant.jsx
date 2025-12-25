@@ -7,12 +7,13 @@ import { Link } from "react-router";
 
 const CatalogPlants = () => {
   const plants = usePlants();
+  const limitPlant = plants.slice(0, 6);
   return (
     <div className="px-6 md:px-16 lg:px-50 pt-10 md:pb-[80px]">
       <Title title="Catalog" />
       <PlantCard
         classname="mt-10 grid grid-cols-1 md:grid-cols-3 "
-        plants={plants}
+        plants={limitPlant}
       />
       <div className=" w-full flex justify-center items-center">
         {plants && (

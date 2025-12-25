@@ -7,13 +7,20 @@ import {
     UserRound,
     X,
 } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import useAuthStore from "../store/useAuthStore";
 // import useAuthStore from "../store/useAuthStore";
 
 const Navbar = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [showSearch, setShowSearch] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    // Cek apakah di halaman home
+    const isHomePage = location.pathname === "/";
 
     // mengambil state usernya
     const user = useAuthStore((state) => state.user);
@@ -30,7 +37,7 @@ const Navbar = () => {
         },
         {
             name: "Orders",
-            path: "/",
+            path: "/order-list",
         },
         {
             name: "Contacts",
@@ -48,6 +55,22 @@ const Navbar = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            navigate('/catalog?search=${encodeURIComponent(searchQuery.trim())}');
+            setShowSearch(false);
+            setSearchQuery("");
+        }
+    };
+
+    const toggleSearch = () => {
+        setShowSearch(!showSearch);
+        if (showSearch) {
+            setSearchQuery("");
+        }
+    };
+
     return (
         <div className="flex justify-center">
             <nav
@@ -61,14 +84,13 @@ const Navbar = () => {
                     <div className="flex justify-between h-16 items-center">
                         {/*       Logo        */}
                         <div className="flex-shrink-0">
-                            {/* <span className="text-xl font-bold text-gray-800">Logo</span> */}
                             <h1 className="flex items-center text-2xl font-bold text-[#B1B1B]">
                                 TerraPlant
                             </h1>
                         </div>
 
                         {/*     Dektop Nav      */}
-                        <div className="hidden md:flex space-x-4">
+                        <div className="hidden md:flex space-x-4 mr-8">
                             {navLinks.map((item, index) => (
                                 <Link
                                     key={index}
@@ -84,7 +106,13 @@ const Navbar = () => {
                         {!user ? (
                             <div
                                 className="hidden md:flex gap-5 items-center"
-                                style={{ color: isVisible ? "#1B1B1B" : "white" }}
+                                style={{
+                                    color: isHomePage
+                                        ? isVisible
+                                            ? "#1B1B1B"
+                                            : "white"
+                                        : "#1B1B1B",
+                                }}
                             >
                                 <Link
                                     to="/register"
@@ -106,15 +134,52 @@ const Navbar = () => {
                             </div>
                         ) : (
                             <div
-                                className="hidden md:flex gap-5 items-center"
-                                style={{ color: isVisible ? "#1B1B1B" : "white" }}
+                                className="hidden md:flex gap-5 items-center relative"
+                                style={{
+                                    color: isHomePage
+                                        ? isVisible
+                                            ? "#1B1B1B"
+                                            : "white"
+                                        : "#1B1B1B",
+                                }}
                             >
-                                <Search />
-                                <Link to="/cart">
+                                {/* Search Input with Animation */}
+                                <div className="relative">
+                                    <form
+                                        onSubmit={handleSearch}
+                                        className={`absolute right-8 top-1/2 -translate-y-1/2 transition-all duration-300 ease-in-out ${showSearch
+                                            ? "w-64 opacity-100 pointer-events-auto"
+                                            : "w-0 opacity-0 pointer-events-none"
+                                            }`}
+                                    >
+                                        <input
+                                            type="text"
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            placeholder="Search plants..."
+                                            className="w-full px-4 py-2 rounded-full bg-gray-100 text-gray-800 text-sm outline-none focus:ring-2 focus:ring-[#1B1B1B]"
+                                            autoFocus={showSearch}
+                                        />
+                                    </form>
+                                    <button
+                                        onClick={toggleSearch}
+                                        className="hover:scale-110 transition-transform relative z-10"
+                                    >
+                                        <Search />
+                                    </button>
+                                </div>
+
+                                <Link
+                                    to="/cart"
+                                    className="hover:scale-110 transition-transform"
+                                >
                                     <ShoppingBasket />
                                 </Link>
 
-                                <div className="flex gap-2 items-center" onClick={logout}>
+                                <div
+                                    className="flex gap-2 items-center cursor-pointer"
+                                    onClick={logout}
+                                >
                                     <div className="border rounded-full p-1">
                                         <UserRound size={18} />
                                     </div>
@@ -125,10 +190,36 @@ const Navbar = () => {
 
                         {/*     Mobile menu nav before click   */}
                         <div
-                            className="md:hidden flex gap-4"
-                            style={{ color: isVisible ? "#1B1B1B" : "white" }}
+                            className="md:hidden flex gap-4 items-center"
+                            style={{
+                                color: isHomePage
+                                    ? isVisible
+                                        ? "#1B1B1B"
+                                        : "white"
+                                    : "#1B1B1B",
+                            }}
                         >
-                            <Search />
+                            <div className="relative">
+                                <form
+                                    onSubmit={handleSearch}
+                                    className={`absolute right-8 top-1/2 -translate-y-1/2 transition-all duration-300 ease-in-out ${showSearch
+                                        ? "w-40 opacity-100 pointer-events-auto"
+                                        : "w-0 opacity-0 pointer-events-none"
+                                        }`}
+                                >
+                                    <input
+                                        type="text"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        placeholder="Search..."
+                                        className="w-full px-3 py-1.5 rounded-full bg-gray-100 text-gray-800 text-sm outline-none focus:ring-2 focus:ring-[#034032]"
+                                        autoFocus={showSearch}
+                                    />
+                                </form>
+                                <button onClick={toggleSearch} className="relative z-10">
+                                    <Search />
+                                </button>
+                            </div>
                             <ShoppingBasket />
                             <button onClick={() => setIsMenuOpen(true)}>
                                 <Menu />
