@@ -1,6 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-
 export default function Pagination({
   currentPage,
   totalPages,
@@ -10,53 +9,50 @@ export default function Pagination({
   getPageNumbers,
 }) {
   return (
-    <div className="flex justify-between items-center gap-1 md:gap-2 mt-6 md:mt-8 ">
-      {/* Previous Button */}
+    <div className="flex justify-between items-center gap-2 mt-8 mb-4">
+      {/* Previous tombol */}
       <button
         onClick={onPrevious}
         disabled={currentPage === 1}
-        className={`flex items-center gap-1 px-3 py-1 md:px-4 md:py-2 rounded-lg font-semibold transition-colors ${
-          currentPage === 1
-            ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-            : "text-gray-700 hover:bg-primary-content hover:text-white"
-        }`}
+        className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-sm ${currentPage === 1
+            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+            : "bg-white text-gray-700 border border-gray-300 hover:bg-[#034032] hover:text-white"
+          }`}
       >
-        <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
+        <ChevronLeft className="w-5 h-5" />
         <span className="hidden sm:inline">Previous</span>
       </button>
 
-      {/* Page Numbers */}
-      <div className="flex gap-1 md:gap-2">
+      {/* Page angka */}
+      <div className="flex gap-2">
         {getPageNumbers().map((page, index) => (
           <button
             key={index}
-            onClick={() => typeof page === 'number' && onPageChange(page)}
-            disabled={page === '...'}
-            className={`min-w-[28px] md:min-w-[32px] h-[28px] md:h-[32px] rounded-lg text-xs md:text-sm font-semibold transition-colors ${
-              page === currentPage
-                ? "bg-primary-content text-white"
-                : page === '...'
-                ? "bg-transparent text-gray-400 cursor-default"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            }`}
+            onClick={() => typeof page === "number" && onPageChange(page)}
+            disabled={page === "..."}
+            className={`min-w-[40px] h-[40px] rounded-lg font-semibold transition-all duration-200 ${page === currentPage
+                ? "bg-[#034032] text-white shadow-md scale-105"
+                : page === "..."
+                  ? "bg-transparent text-gray-400 cursor-default"
+                  : "bg-white text-gray-700 border border-gray-300 hover:bg-[#034032]/20 hover:border-[#034032]/10 hover:text-[#034032] shadow-sm"
+              }`}
           >
             {page}
           </button>
         ))}
       </div>
 
-      {/* Next Button */}
+      {/* Next tombol */}
       <button
         onClick={onNext}
         disabled={currentPage === totalPages}
-        className={`flex items-center gap-1 px-3 py-1 md:px-4 md:py-2 rounded-lg font-semibold transition-colors ${
-          currentPage === totalPages
-            ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-            : " text-gray-700 hover:bg-primary-content hover:text-white"
-        }`}
+        className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-sm ${currentPage === totalPages
+            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+            : "bg-white text-gray-700 border border-gray-300 hover:bg-[#034032] hover:text-white"
+          }`}
       >
         <span className="hidden sm:inline">Next</span>
-        <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
+        <ChevronRight className="w-5 h-5" />
       </button>
     </div>
   );
