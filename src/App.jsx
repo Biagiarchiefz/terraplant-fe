@@ -8,6 +8,7 @@ import Layout from "./components/Layout";
 import Catalog from "./pages/Catalog";
 import { useEffect } from "react";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 
 
 
@@ -27,6 +28,8 @@ function App() {
             <Route path="/plant/:id" element={<PlantDetail />} />
             <Route path="/Catalog" element={< Catalog />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+
           </Route>
 
           {/* Auth */}
