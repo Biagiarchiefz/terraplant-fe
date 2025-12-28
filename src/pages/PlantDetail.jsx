@@ -3,8 +3,10 @@ import plant1 from "../assets/images/plants1.webp";
 import { Minus, Plus } from "lucide-react";
 import { Link, useParams } from "react-router";
 import { plantDetail } from "../services/plant.services";
-// import useAuthStore from "../store/useAuthStore";
 import { addCart } from "../services/cart.services";
+import { alertError, alertSucces } from "../lib/alert";
+import useCartStore from "../store/useCartStore";
+import useAuthStore from "../store/useAuthStore";
 
 const PlantDetail = () => {
   const [plant, setPlant] = useState({});
@@ -13,6 +15,8 @@ const PlantDetail = () => {
   const totalPrice = quantity * price;
   // const user = useAuthStore((state) => state.user);
 
+  const fetchCart = useCartStore((state) => state.fetchCart);
+  const user = useAuthStore((state) => state.user);
   const { id } = useParams();
 
   useEffect(() => {
@@ -24,7 +28,6 @@ const PlantDetail = () => {
     getData();
   }, [id]);
 
-
   const handleAddCart = async () => {
     try {
       await addCart({
@@ -32,9 +35,10 @@ const PlantDetail = () => {
         qty: quantity,
       });
 
-      alert("data tanaman berhasil di tambahkan ke keranjang");
+      await fetchCart(user.id); // Refresh cart setelah add item
+      await alertSucces("Tanaman ditambahkan ke keranjang");
     } catch (err) {
-      alert(`gagal menambahkan ke keranjang ${err}`);
+      await alertError("Gagal menambahkan tanaman ke keranjang");
     }
   };
 
@@ -50,25 +54,6 @@ const PlantDetail = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 px-50 mt-15">
-      {/* Breadcrumb */}
-      {/* <div className="container mx-auto px-6 py-6 mt-15">
-        <div className="flex items-center gap-2 text-sm text-gray-600">
-          <Link to="/" className="hover:text-gray-900">
-            Homepage
-          </Link>
-          <span>/</span>
-          <Link to="/catalog" className="hover:text-gray-900">
-            Catalog
-          </Link>
-          <span>/</span>
-          <Link to="/indoor-plants" className="hover:text-gray-900">
-            Indoor plants
-          </Link>
-          <span>/</span>
-          <span className="text-gray-900 font-medium">Ficus Lirata</span>
-        </div>
-      </div> */}
-
       {/* Product Section */}
       <div className="container mx-auto px-6 pt-20 ">
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl">
@@ -94,7 +79,6 @@ const PlantDetail = () => {
               <p className="text-gray-700 leading-relaxed mb-4">
                 {plant.deskripsi}
               </p>
-              <p className="text-gray-700">Height: 80 cm</p>
             </div>
 
             {/* Price and Add to Cart */}

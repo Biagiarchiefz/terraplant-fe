@@ -1,93 +1,63 @@
-import React, { useEffect, useState } from "react"
-
+import React, { useEffect } from "react";
 import plant1 from "../assets/images/plants1.webp";
 import useAuthStore from "../store/useAuthStore";
-import { Minus, Plus, X } from "lucide-react";
+import { Minus, Plus, X, ShoppingCart } from "lucide-react";
 import { Link } from "react-router";
-import { deleteItemCart, getCartById, updateCart } from "../services/cart.services";
-
+import useCartStore from "../store/useCartStore";
 
 const Cart = () => {
-  const [carts, setCart] = useState({
-    items: [],
-    grandTotal: 0,
-  });
-
   const user = useAuthStore((state) => state.user);
-  // const [item, setItem] = useState([])
-
-  const handleIncrement = async (item) => {
-    const newQty = item.qty + 1;
-
-    setCart((prev) => {
-      const updatedItems = prev.items.map((i) =>
-        i.id === item.id ? { ...i, qty: newQty } : i
-      );
-
-      return {
-        ...prev,
-        items: updatedItems,
-        grandTotal: updatedItems.reduce((sum, i) => sum + i.qty * i.harga, 0),
-      };
-    });
-
-    try {
-      await updateCart(item.id, newQty);
-    } catch (err) {
-      alert("Gagal update cart");
-    }
-  };
-
-  const handleDecrement = async (item) => {
-    console.log(item);
-    console.log(item.id);
-
-    if (item.qty <= 1) return;
-
-    const newQty = item.qty - 1;
-
-    // 1️. Update UI
-    setCart((prev) => {
-      const updatedItems = prev.items.map((i) =>
-        i.id === item.id ? { ...i, qty: newQty } : i
-      );
-
-      return {
-        ...prev,
-        items: updatedItems,
-        grandTotal: updatedItems.reduce((sum, i) => sum + i.qty * i.harga, 0),
-      };
-    });
-
-    // 2️. Update backend
-    try {
-      await updateCart(item.id, newQty);
-    } catch (err) {
-      alert("Gagal update cart");
-    }
-  };
-
-  const fetchCart = async () => {
-    const response = await getCartById(user.id);
-    console.log(response.data.data);
-    setCart(response.data.data);
-  };
-
-  const handleDeleteItem = async (item) => {
-    const isConfirmed = window.confirm(
-      "Apakah anda yakin ingin menghapus item ini?"
-    );
-
-    if (isConfirmed) {
-      await deleteItemCart(item.id);
-      fetchCart(); // Memanggil ulang data cart
-    }
-  };
+  const fetchCart = useCartStore((state) => state.fetchCart);
+  const carts = useCartStore((state) => state.carts);
+  const incrementItem = useCartStore((state) => state.incrementItem);
+  const decrementItem = useCartStore((state) => state.decrementItem);
+  const deleteItem = useCartStore((state) => state.deleteItem);
+  const loading = useCartStore((state) => state.loading);
 
   useEffect(() => {
     if (!user) return;
-    fetchCart();
+    fetchCart(user.id)
   }, [user]);
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 px-50 py-6 mt-15 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-green-200 border-t-[#006850] rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Memuat keranjang...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Empty state
+  if (!carts.items || carts.items.length === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50 px-50 py-6 flex flex-col justify-center items-center">
+        <div className="container mx-auto">
+          <div className="text-center py-16">
+            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <ShoppingCart className="w-12 h-12 text-[#006850]" />
+            </div>
+            <h3 className="text-2xl font-semibold text-gray-900 mb-3">
+              Keranjang Belanja Kosong
+            </h3>
+            <p className="text-gray-600 mb-8 max-w-md mx-auto">
+              Sepertinya Anda belum menambahkan tanaman apapun ke keranjang.
+              Yuk, mulai belanja sekarang!
+            </p>
+            <Link
+              to="/catalog"
+              className="inline-block px-8 py-3 bg-[#006850] hover:bg-[#018f6e] text-white font-medium rounded-lg transition-colors"
+            >
+              Mulai Belanja
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 px-50 py-6 mt-15">
@@ -101,14 +71,14 @@ const Cart = () => {
             <h1 className="text-right">Amount</h1>
           </div>
 
-          {/* ===== ROW ===== */}
+          {/* Baris */}
           {carts.items.map((cart) => (
             <div
               key={cart.id}
               className="grid grid-cols-[4fr_1fr_1fr] items-center px-4 py-4 border-t border-black/30 relative"
             >
               <button
-                onClick={() => handleDeleteItem(cart)}
+                onClick={() => deleteItem(cart.id, user.id)}
                 className="absolute top-1.5 right-0"
               >
                 <X size={18} />
@@ -127,11 +97,11 @@ const Cart = () => {
                 </h1>
               </div>
 
-              {/* NUMBER */}
+              {/* Nomor */}
               <div className="flex justify-center">
                 <div className="flex items-center border border-gray-300 rounded">
                   <button
-                    onClick={() => handleDecrement(cart)}
+                    onClick={() => decrementItem(cart)}
                     className="p-2 hover:bg-gray-100"
                   >
                     <Minus className="w-4 h-4" />
@@ -145,7 +115,7 @@ const Cart = () => {
                   />
 
                   <button
-                    onClick={() => handleIncrement(cart)}
+                    onClick={() => incrementItem(cart)}
                     className="p-2 hover:bg-gray-100"
                   >
                     <Plus className="w-4 h-4" />
@@ -153,9 +123,8 @@ const Cart = () => {
                 </div>
               </div>
 
-              {/* AMOUNT */}
+              {/* Total */}
               <div className="text-right font-semibold">
-                {/* <p> Rp.{cart.total.toLocaleString()}</p> */}
                 <p> Rp.{(cart.qty * cart.harga).toLocaleString()}</p>
               </div>
             </div>
@@ -180,7 +149,10 @@ const Cart = () => {
             <p className="font-bold">Rp.{carts.grandTotal.toLocaleString()}</p>
           </div>
           <div className="border border-black/30  flex justify-center items-center p-3">
-            <Link to={"/checkout"} className="bg-[#1B1B1B] w-full text-white py-2 px-9 cursor-pointer text-center">
+            <Link
+              to={"/checkout"}
+              className="bg-[#1B1B1B] w-full text-white py-2 px-9 cursor-pointer text-center"
+            >
               Checkout
             </Link>
           </div>

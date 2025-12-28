@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
-import { orderDetail } from "../services/order.services";
-import plant1 from "../assets/images/plants1.webp"
+import {
+  orderDetail,
+  updateOrderStatusComplate,
+} from "../services/order.services";
+import plant1 from "../assets/images/plants1.webp";
 import {
   ArrowLeft,
   Copy,
@@ -15,7 +18,6 @@ import {
   CheckCircle,
   Leaf,
 } from "lucide-react";
-
 
 const statusConfig = {
   pembayaran: {
@@ -54,6 +56,7 @@ const steps = [
 const OrderDetail = () => {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [completing, setCompleting] = useState(false);
 
   const { id } = useParams();
 
@@ -62,6 +65,7 @@ const OrderDetail = () => {
       setLoading(true);
       const response = await orderDetail(id);
       console.log(response.data.data);
+      // Response sudah sesuai format yang dibutuhkan, tidak perlu mapping
       setOrder(response.data.data);
     } catch (err) {
       console.log(err);
@@ -77,6 +81,38 @@ const OrderDetail = () => {
   const copyToClipboard = (text, label) => {
     navigator.clipboard.writeText(text);
     alert(`${label} berhasil disalin!`);
+  };
+
+  const handleCompleteOrder = async () => {
+    if (
+      !confirm(
+        "Apakah Anda yakin telah menerima pesanan ini? Status akan diubah menjadi Selesai."
+      )
+    ) {
+      return;
+    }
+
+    try {
+      setCompleting(true);
+
+      // Call API untuk update status ke selesai
+      const response = await updateOrderStatusComplate(id, "selesai");
+
+      console.log("Status berhasil diupdate:", response.data);
+
+      // Update local state
+      setOrder((prev) => ({ ...prev, status: "selesai" }));
+
+      alert("Terima kasih! Pesanan telah selesai.");
+
+      // Refresh data order
+      await fetchDetailOrder();
+    } catch (error) {
+      console.error("Error completing order:", error);
+      alert("Gagal menyelesaikan pesanan. Silakan coba lagi.");
+    } finally {
+      setCompleting(false);
+    }
   };
 
   // Format tanggal
@@ -107,7 +143,7 @@ const OrderDetail = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-16 h-16 border-4 border-green-200 border-t-[#006850] rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-4 border-green-200 border-t-[#006850] rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -361,10 +397,31 @@ const OrderDetail = () => {
 
             {/* Action Buttons */}
             <div className="space-y-3">
+              {order.status === "dikirim" && (
+                <button
+                  onClick={handleCompleteOrder}
+                  disabled={completing}
+                  className="w-full bg-[#006850] hover:bg-[#018f6e] disabled:bg-gray-400 text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors"
+                >
+                  {completing ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Memproses...
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle className="w-4 h-4" />
+                      Pesanan Diterima
+                    </>
+                  )}
+                </button>
+              )}
+
               <button className="w-full bg-[#006850] hover:bg-[#018f6e] text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors">
                 <MessageCircle className="w-4 h-4" />
                 Hubungi Penjual
               </button>
+
               {order.status === "pembayaran" && (
                 <button className="w-full border border-gray-300 text-gray-900 px-4 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
                   Batalkan Pesanan

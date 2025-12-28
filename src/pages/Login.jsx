@@ -3,6 +3,7 @@ import { login } from "../services/auth.services";
 import { Link, useNavigate } from "react-router";
 import useAuthStore from "../store/useAuthStore";
 import LoginImg from "../assets/images/login.jpg";
+import { alertError, alertSucces } from "../lib/alert";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -29,7 +30,7 @@ const Login = () => {
 
       authLogin(data, token);
 
-      alert("Login berhasil");
+      await alertSucces("Login Berhasil")
 
       // redirect berdasarkan role
       if (data.role === "admin") {
@@ -39,7 +40,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error(error);
-      alert("Login gagal");
+      await alertError("Login Gagal")
     }
   };
 
