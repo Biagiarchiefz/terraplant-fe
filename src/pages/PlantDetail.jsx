@@ -3,13 +3,15 @@ import plant1 from "../assets/images/plants1.webp";
 import { Minus, Plus } from "lucide-react";
 import { Link, useParams } from "react-router";
 import { plantDetail } from "../services/plant.services";
+// import useAuthStore from "../store/useAuthStore";
+import { addCart } from "../services/cart.services";
 
-
-const Plant = () => {
+const PlantDetail = () => {
   const [plant, setPlant] = useState({});
   const [quantity, setQuantity] = useState(1);
   const price = plant.harga;
   const totalPrice = quantity * price;
+  // const user = useAuthStore((state) => state.user);
 
   const { id } = useParams();
 
@@ -22,6 +24,20 @@ const Plant = () => {
     getData();
   }, [id]);
 
+
+  const handleAddCart = async () => {
+    try {
+      await addCart({
+        plantId: plant.id,
+        qty: quantity,
+      });
+
+      alert("data tanaman berhasil di tambahkan ke keranjang");
+    } catch (err) {
+      alert(`gagal menambahkan ke keranjang ${err}`);
+    }
+  };
+
   const handleDecrement = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -33,9 +49,9 @@ const Plant = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 px-50">
+    <div className="min-h-screen bg-gray-50 px-50 mt-15">
       {/* Breadcrumb */}
-      <div className="container mx-auto px-6 py-6 mt-15">
+      {/* <div className="container mx-auto px-6 py-6 mt-15">
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <Link to="/" className="hover:text-gray-900">
             Homepage
@@ -51,10 +67,10 @@ const Plant = () => {
           <span>/</span>
           <span className="text-gray-900 font-medium">Ficus Lirata</span>
         </div>
-      </div>
+      </div> */}
 
       {/* Product Section */}
-      <div className="container mx-auto px-6 py-8">
+      <div className="container mx-auto px-6 pt-20 ">
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl">
           {/* Product Image */}
           <div className="bg-gray-100 rounded-lg overflow-hidden">
@@ -85,9 +101,7 @@ const Plant = () => {
             <div className="mt-auto">
               <div className="text-3xl font-bold text-gray-900 mb-6">
                 {totalPrice ? (
-                  <p>
-                    Rp.{totalPrice.toLocaleString()}
-                  </p>
+                  <p>Rp.{totalPrice.toLocaleString()}</p>
                 ) : (
                   <p>Rp.0</p>
                 )}
@@ -124,7 +138,10 @@ const Plant = () => {
                 </div>
 
                 {/* Add to Cart Button */}
-                <button className="bg-black text-white px-6 py-3 text-base hover:bg-gray-800 transition-colors">
+                <button
+                  onClick={handleAddCart}
+                  className="bg-black text-white px-6 py-3 text-base hover:bg-gray-800 transition-colors"
+                >
                   Add to Cart
                 </button>
               </div>
@@ -136,4 +153,4 @@ const Plant = () => {
   );
 };
 
-export default Plant;
+export default PlantDetail;

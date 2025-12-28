@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react"
-import {
-  deleteItemCart,
-  getCartById,
-  updateCart,
-} from "../services/cart.services";
+
 import plant1 from "../assets/images/plants1.webp";
 import useAuthStore from "../store/useAuthStore";
 import { Minus, Plus, X } from "lucide-react";
 import { Link } from "react-router";
+import { deleteItemCart, getCartById, updateCart } from "../services/cart.services";
 
 
 const Cart = () => {
@@ -72,7 +69,7 @@ const Cart = () => {
 
   const fetchCart = async () => {
     const response = await getCartById(user.id);
-    // console.log(response.data.data);
+    console.log(response.data.data);
     setCart(response.data.data);
   };
 
