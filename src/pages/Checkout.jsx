@@ -4,6 +4,7 @@ import { checkout } from "../services/checkout.services";
 import { getCartById } from "../services/cart.services";
 import useAuthStore from "../store/useAuthStore";
 import { useNavigate } from "react-router";
+import { alertError, alertSucces } from "../lib/alert";
 
 const Checkout = () => {
   const [carts, setCart] = useState({
@@ -38,10 +39,10 @@ const Checkout = () => {
     const response = await checkout(formData);
     // console.log(response);
     if(response.status == 200) {
-      alert("barang akan dikemas")
+      await alertSucces("Pembayaran Berhasil")
       navigate("/order-list")
     } else {
-      alert("gagal checkout")
+      await alertError("Barang gagal di checkout")
     }
 
   };
@@ -275,18 +276,20 @@ const Checkout = () => {
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Subtotal</span>
                     <span className="font-semibold text-gray-900">
+                      {/* Rp {subtotal.toLocaleString("id-ID")} */}
                       Rp {carts.grandTotal.toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Diskon</span>
                     <span className="font-semibold text-gray-900">
-                        0
+                      0
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Pengiriman</span>
                     <span className="font-semibold">
+                    
                       Gratis
                     </span>
                   </div>
