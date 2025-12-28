@@ -1,0 +1,34 @@
+import { create } from "zustand";
+import { plantList, updatePlant } from "../services/plant.services";
+
+export const usePlantListStore = create((set) => ({
+  plants: [],
+  loading: false,
+
+  fetchPlants: async () => {
+    set({ loading: true });
+
+    try {
+      const response = await plantList();
+      // console.log(response.data)
+      set({ plants: response.data.data || [] });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  updatePlants: async (id, data) => {
+    set({ loading: true });
+
+    try {
+      const response = await updatePlant(id, data);
+      set({ plants: response.data.data || [] });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      set({ loading: false });
+    }
+  },
+}));

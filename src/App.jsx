@@ -5,8 +5,8 @@ import Register from "./pages/Register";
 import Layout from "./components/Layout";
 import useAuthStore from "./store/useAuthStore";
 import { useEffect } from "react";
-// import AdminLayout from "./components/admin/AdminLayout";
-// import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminLayout from "./components/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import Catalog from "./pages/Catalog";
 import Cart from "./pages/Cart";
 import PlantDetail from "./pages/PlantDetail";
@@ -49,15 +49,15 @@ function App() {
           </Route>
 
           {/* ADMIN ROUTE */}
-          {/* <Route element={<ProtectedRoute />}>
+          <Route element={<ProtectedRoute />}>
             <Route path="/admin" element={<AdminLayout />}>
               <Route path="dashboard" element={<AdminDashboard />} />
-              <Route path="users" element={<AdminUserList />} />
+              {/* <Route path="users" element={<AdminUserList />} />
               <Route path="plants" element={<AdminPlantList />} />
               <Route path="orders" element={<AdminOrderList />} />
-              <Route path="orders/:id" element={<AdminOdersDetail />} />
+              <Route path="orders/:id" element={<AdminOdersDetail />} /> */}
             </Route>
-          </Route> */}
+          </Route>
         </Routes>
       </div>
 
