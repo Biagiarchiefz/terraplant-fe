@@ -13,10 +13,10 @@ import PlantDetail from "./pages/PlantDetail";
 import Checkout from "./pages/Checkout";
 import OrderList from "./pages/OrderList";
 import OrderDetail from "./pages/OrderDetail";
-// import AdminUserList from "./pages/admin/AdminUserList";
-// import AdminPlantList from "./pages/admin/AdminPlantList";
-// import AdminOrderList from "./pages/admin/AdminOrderList";
-// import AdminOdersDetail from "./pages/admin/AdminOdersDetail";
+import AdminUserList from "./pages/admin/AdminUserList";
+import AdminPlantList from "./pages/admin/AdminPlantList";
+import AdminOrderList from "./pages/admin/AdminOrderList";
+import AdminOrderDetail from "./pages/admin/AdminOrderDetail";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
             {/* Landing Page */}
             <Route path="/" element={<Home />} />
             <Route path="/catalog" element={<Catalog />} />
-            
+
             <Route element={<ProtectedRoute />}>
               <Route path="/plant/:id" element={<PlantDetail />} />
               <Route path="/cart" element={<Cart />} />
@@ -52,10 +52,10 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/admin" element={<AdminLayout />}>
               <Route path="dashboard" element={<AdminDashboard />} />
-              {/* <Route path="users" element={<AdminUserList />} />
+              <Route path="users" element={<AdminUserList />} />
               <Route path="plants" element={<AdminPlantList />} />
               <Route path="orders" element={<AdminOrderList />} />
-              <Route path="orders/:id" element={<AdminOdersDetail />} /> */}
+              <Route path="orders/:id" element={<AdminOrderDetail />} />
             </Route>
           </Route>
         </Routes>

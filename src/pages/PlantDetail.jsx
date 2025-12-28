@@ -13,6 +13,7 @@ const PlantDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const price = plant.harga;
   const totalPrice = quantity * price;
+  // const user = useAuthStore((state) => state.user);
 
   const fetchCart = useCartStore((state) => state.fetchCart);
   const user = useAuthStore((state) => state.user);
