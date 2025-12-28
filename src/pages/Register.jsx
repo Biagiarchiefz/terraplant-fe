@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { register } from "../services/auth.services";
 import { Link, useNavigate } from "react-router";
 import LoginImg from "../assets/images/login.jpg"
+import { alertError, alertSucces } from "../lib/alert";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -35,10 +36,10 @@ const Register = () => {
     const response = await register(formData);
 
     if (response.status === 201) {
-      alert("registrasi berhasil");
+      await alertSucces("Registrasi Berhasil")
       navigate("/login");
     } else {
-      alert("gagal registrasi");
+      await alertError("Registrasi Gagal")
     }
   };
 
@@ -72,7 +73,7 @@ const Register = () => {
                   name="nama"
                   value={formData.nama}
                   onChange={handleChange}
-                  placeholder="masukkan email..."
+                  placeholder="masukkan nama..."
                   className="w-full h-12 px-4 rounded-lg border border-black/20 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   required
                 />
@@ -149,7 +150,7 @@ const Register = () => {
                 type="submit"
                 className="w-full h-12 bg-primary text-primary-foreground font-semibold rounded-lg hover:opacity-90 transition-opacity bg-[#034032] text-white"
               >
-                Login
+                Registrasi
               </button>
             </form>
 
