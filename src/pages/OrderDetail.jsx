@@ -143,7 +143,7 @@ const OrderDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center px-4">
         <div className="w-8 h-8 border-4 border-green-200 border-t-[#006850] rounded-full animate-spin"></div>
       </div>
     );
@@ -151,15 +151,15 @@ const OrderDetail = () => {
 
   if (!order) {
     return (
-      <div className="min-h-screen items-center justify-center">
+      <div className="min-h-screen items-center justify-center px-4">
         <div className="text-center">
-          <Package className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900">
+          <Package className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" />
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
             Pesanan tidak ditemukan
           </h2>
           <Link
             to="/order-list"
-            className="text-[#006850] hover:text-green-[#006850] mt-4 inline-block"
+            className="text-[#006850] hover:text-green-[#006850] mt-4 inline-block text-sm sm:text-base"
           >
             Kembali ke Daftar Pesanan
           </Link>
@@ -172,49 +172,49 @@ const OrderDetail = () => {
   const StatusIcon = status.icon;
 
   return (
-    <div className="min-h-screen mt-15">
-      <main className="container mx-auto px-50 py-6">
+    <div className="min-h-screen mt-8 sm:mt-12 md:mt-15">
+      <main className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-50 py-4 sm:py-6">
         {/* Back Button */}
         <Link
           to="/order-list"
-          className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-6"
+          className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-4 mt-6 sm:mb-6 text-sm sm:text-base"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Kembali ke Daftar Pesanan</span>
         </Link>
 
         {/* Order Header */}
-        <div className="bg-white rounded-2xl p-6 border border-gray-200 mb-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200 mb-4 sm:mb-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 sm:mb-6">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <h1 className="text-xl font-bold text-gray-900">
+                <h1 className="text-lg sm:text-xl font-bold text-gray-900">
                   Order #{order.id ? order.id.slice(-8) : "N/A"}
                 </h1>
                 <button
                   onClick={() => copyToClipboard(order.id, "Nomor pesanan")}
                   className="text-gray-600 hover:text-gray-900"
                 >
-                  <Copy className="w-4 h-4" />
+                  <Copy className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-xs sm:text-sm text-gray-600">
                 {formatDate(order.created_at)}
               </p>
             </div>
             <div
-              className={`${status.className} flex items-center gap-1.5 px-4 py-2 rounded-full border text-sm font-medium`}
+              className={`${status.className} flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-full border text-xs sm:text-sm font-medium w-fit`}
             >
-              <StatusIcon className="w-4 h-4" />
+              <StatusIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               {status.label}
             </div>
           </div>
 
           {/* Progress Steps */}
           <div className="flex items-center justify-between relative">
-            <div className="absolute top-5 left-0 right-0 h-0.5 bg-gray-200" />
+            <div className="absolute top-4 sm:top-5 left-0 right-0 h-0.5 bg-gray-200" />
             <div
-              className="absolute top-5 left-0 h-0.5 bg-[#006850] transition-all duration-500"
+              className="absolute top-4 sm:top-5 left-0 h-0.5 bg-[#006850] transition-all duration-500"
               style={{ width: `${(status.step / 3) * 100}%` }}
             />
             {steps.map((step, index) => {
@@ -226,16 +226,16 @@ const OrderDetail = () => {
                   className="relative z-10 flex flex-col items-center"
                 >
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+                    className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors ${
                       isActive
                         ? "bg-[#006850] text-white"
                         : "bg-gray-200 text-gray-500"
                     }`}
                   >
-                    <StepIcon className="w-5 h-5" />
+                    <StepIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <span
-                    className={`text-xs mt-2 ${
+                    className={`text-[10px] sm:text-xs mt-1 sm:mt-2 text-center ${
                       isActive ? "text-[#006850] font-medium" : "text-gray-500"
                     }`}
                   >
@@ -247,21 +247,21 @@ const OrderDetail = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
           {/* Left Column - Items & Summary */}
-          <div className="md:col-span-2 space-y-6">
+          <div className="md:col-span-2 space-y-4 sm:space-y-6">
             {/* Order Items */}
-            <div className="bg-white rounded-2xl p-6 border border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                 Daftar Produk
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {order.items?.map((item) => (
                   <div
                     key={item.id}
-                    className="flex gap-4 p-3 bg-gray-50 rounded-xl"
+                    className="flex gap-3 sm:gap-4 p-3 bg-gray-50 rounded-xl"
                   >
-                    <div className="w-20 h-20 rounded-xl bg-green-50 overflow-hidden flex-shrink-0">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-green-50 overflow-hidden flex-shrink-0">
                       <img
                         src={item.gambar}
                         alt={item.nama}
@@ -269,12 +269,14 @@ const OrderDetail = () => {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-gray-900">{item.nama}</h3>
+                      <h3 className="font-medium text-gray-900 text-sm sm:text-base line-clamp-2">
+                        {item.nama}
+                      </h3>
                       <div className="flex items-center justify-between mt-2">
-                        <span className="text-sm text-gray-600">
+                        <span className="text-xs sm:text-sm text-gray-600">
                           {item.qty}x
                         </span>
-                        <span className="font-semibold text-[#006850]">
+                        <span className="font-semibold text-[#006850] text-sm sm:text-base">
                           Rp {item.harga.toLocaleString("id-ID")}
                         </span>
                       </div>
@@ -285,40 +287,44 @@ const OrderDetail = () => {
             </div>
 
             {/* Payment Summary */}
-            <div className="bg-white rounded-2xl p-6 border border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                 Ringkasan Pembayaran
               </h2>
-              <div className="space-y-3">
-                <div className="flex justify-between text-sm">
+              <div className="space-y-2 sm:space-y-3">
+                <div className="flex justify-between text-xs sm:text-sm">
                   <span className="text-gray-600">Subtotal</span>
                   <span className="text-gray-900">
                     Rp {order.summary?.subtotal.toLocaleString("id-ID")}
                   </span>
                 </div>
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-xs sm:text-sm">
                   <span className="text-gray-600">Ongkos Kirim</span>
                   <span className="text-gray-900">
                     Rp {order.summary?.ongkir.toLocaleString("id-ID")}
                   </span>
                 </div>
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-xs sm:text-sm">
                   <span className="text-gray-600">Diskon Ongkir</span>
                   <span className="text-[#006850]">
                     -Rp {order.summary?.diskonOngkir.toLocaleString("id-ID")}
                   </span>
                 </div>
-                <div className="border-t border-gray-200 my-3"></div>
+                <div className="border-t border-gray-200 my-2 sm:my-3"></div>
                 <div className="flex justify-between">
-                  <span className="font-semibold text-gray-900">Total</span>
-                  <span className="text-xl font-bold text-[#006850]">
+                  <span className="font-semibold text-gray-900 text-sm sm:text-base">
+                    Total
+                  </span>
+                  <span className="text-lg sm:text-xl font-bold text-[#006850]">
                     Rp {order.summary?.total.toLocaleString("id-ID")}
                   </span>
                 </div>
               </div>
-              <div className="mt-4 p-3 bg-gray-50 rounded-xl">
-                <p className="text-sm text-gray-600">Metode Pembayaran</p>
-                <p className="font-medium text-gray-900">
+              <div className="mt-3 sm:mt-4 p-3 bg-gray-50 rounded-xl">
+                <p className="text-xs sm:text-sm text-gray-600">
+                  Metode Pembayaran
+                </p>
+                <p className="font-medium text-gray-900 text-sm sm:text-base">
                   {formatPaymentMethod(order.paymentMethod)}
                 </p>
               </div>
@@ -326,51 +332,51 @@ const OrderDetail = () => {
           </div>
 
           {/* Right Column - Shipping & Contact */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Shipping Info */}
-            <div className="bg-white rounded-2xl p-6 border border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                 Info Pengiriman
               </h2>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <User className="w-5 h-5 text-[#006850] mt-0.5" />
+              <div className="space-y-3 sm:space-y-4">
+                <div className="flex items-start gap-2 sm:gap-3">
+                  <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#006850] mt-0.5" />
                   <div>
-                    <p className="text-sm text-gray-600">Penerima</p>
-                    <p className="font-medium text-gray-900">
+                    <p className="text-xs sm:text-sm text-gray-600">Penerima</p>
+                    <p className="font-medium text-gray-900 text-sm sm:text-base">
                       {order.shipping?.fullName}
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <Phone className="w-5 h-5 text-[#006850] mt-0.5" />
+                <div className="flex items-start gap-2 sm:gap-3">
+                  <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-[#006850] mt-0.5" />
                   <div>
-                    <p className="text-sm text-gray-600">Telepon</p>
-                    <p className="font-medium text-gray-900">
+                    <p className="text-xs sm:text-sm text-gray-600">Telepon</p>
+                    <p className="font-medium text-gray-900 text-sm sm:text-base">
                       {order.shipping?.phone}
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-[#006850] mt-0.5" />
+                <div className="flex items-start gap-2 sm:gap-3">
+                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[#006850] mt-0.5" />
                   <div>
-                    <p className="text-sm text-gray-600">Alamat</p>
-                    <p className="font-medium text-gray-900">
+                    <p className="text-xs sm:text-sm text-gray-600">Alamat</p>
+                    <p className="font-medium text-gray-900 text-sm sm:text-base leading-relaxed">
                       {order.shipping?.address}
                     </p>
                   </div>
                 </div>
-                <div className="border-t border-gray-200 my-3"></div>
-                <div className="flex items-start gap-3">
-                  <Truck className="w-5 h-5 text-[#006850] mt-0.5" />
+                <div className="border-t border-gray-200 my-2 sm:my-3"></div>
+                <div className="flex items-start gap-2 sm:gap-3">
+                  <Truck className="w-4 h-4 sm:w-5 sm:h-5 text-[#006850] mt-0.5" />
                   <div className="w-full">
-                    <p className="text-sm text-gray-600">Kurir</p>
-                    <p className="font-medium text-gray-900">
+                    <p className="text-xs sm:text-sm text-gray-600">Kurir</p>
+                    <p className="font-medium text-gray-900 text-sm sm:text-base">
                       {order.shipping?.courier?.name}
                     </p>
                     {order.shipping?.courier?.resi && (
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-sm text-gray-600">
+                        <span className="text-xs sm:text-sm text-gray-600">
                           {order.shipping.courier.resi}
                         </span>
                         <button
@@ -382,14 +388,14 @@ const OrderDetail = () => {
                           }
                           className="text-[#006850] hover:text-green-700"
                         >
-                          <Copy className="w-3.5 h-3.5" />
+                          <Copy className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                         </button>
                       </div>
                     )}
                   </div>
                 </div>
                 {order.shipping?.courier?.estimate && (
-                  <p className="text-sm text-gray-600">
+                  <p className="text-xs sm:text-sm text-gray-600">
                     Estimasi tiba: {order.shipping.courier.estimate}
                   </p>
                 )}
@@ -397,12 +403,12 @@ const OrderDetail = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {order.status === "dikirim" && (
                 <button
                   onClick={handleCompleteOrder}
                   disabled={completing}
-                  className="w-full bg-[#006850] hover:bg-[#018f6e] disabled:bg-gray-400 text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors"
+                  className="w-full bg-[#006850] hover:bg-[#018f6e] disabled:bg-gray-400 text-white px-4 py-2.5 sm:py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors text-sm sm:text-base"
                 >
                   {completing ? (
                     <>
@@ -418,20 +424,20 @@ const OrderDetail = () => {
                 </button>
               )}
 
-              <button className="w-full bg-[#006850] hover:bg-[#018f6e] text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors">
+              <button className="w-full bg-[#006850] hover:bg-[#018f6e] text-white px-4 py-2.5 sm:py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors text-sm sm:text-base">
                 <MessageCircle className="w-4 h-4" />
                 Hubungi Penjual
               </button>
 
               {order.status === "pembayaran" && (
-                <button className="w-full border border-gray-300 text-gray-900 px-4 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                <button className="w-full border border-gray-300 text-gray-900 px-4 py-2.5 sm:py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors text-sm sm:text-base">
                   Batalkan Pesanan
                 </button>
               )}
               {order.status === "selesai" && (
                 <Link
                   to="/catalog"
-                  className="w-full border border-gray-300 text-gray-900 px-4 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center"
+                  className="w-full border border-gray-300 text-gray-900 px-4 py-2.5 sm:py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center text-sm sm:text-base"
                 >
                   Beli Lagi
                 </Link>

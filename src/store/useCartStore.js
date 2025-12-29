@@ -20,6 +20,8 @@ const useCartStore = create((set, get) => ({
 
   // action ubah state
   fetchCart: async (userId) => {
+    if (!userId) return;
+
     set({ loading: true });
 
     try {
@@ -35,6 +37,15 @@ const useCartStore = create((set, get) => ({
         loading: false,
       });
     }
+  },
+
+  resetCart: () => {
+    set({
+      carts: {
+        items: [],
+        grandTotal: 0,
+      },
+    });
   },
 
   incrementItem: async (item) => {

@@ -93,6 +93,10 @@ const Navbar = () => {
     setShowUserDropdown(false);
   };
 
+  const handleMenuClick = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <div className="flex justify-center">
       <nav
@@ -106,7 +110,11 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             {/*       Logo        */}
-            <div className="flex-shrink-0">
+            <div
+              className={`flex-shrink-0 transition-opacity duration-300 ${
+                showSearch ? "md:opacity-100 opacity-0" : "opacity-100"
+              }`}
+            >
               <h1 className="flex items-center text-2xl font-bold text-[#B1B1B]">
                 TerraPlant
               </h1>
@@ -267,14 +275,17 @@ const Navbar = () => {
                   <Search />
                 </button>
               </div>
-              <div className="relative flex items-center justify-center">
+              <Link
+                to="/cart"
+                className="relative flex items-center justify-center"
+              >
                 <ShoppingBasket />
                 {totalItems > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                     {totalItems}
                   </span>
                 )}
-              </div>
+              </Link>
               <button
                 onClick={() => setIsMenuOpen(true)}
                 className="flex items-center justify-center"
@@ -297,7 +308,12 @@ const Navbar = () => {
               </button>
 
               {navLinks.map((item, index) => (
-                <Link key={index} to={item.path} className="">
+                <Link
+                  key={index}
+                  to={item.path}
+                  className=""
+                  onClick={handleMenuClick}
+                >
                   {item.name}
                 </Link>
               ))}

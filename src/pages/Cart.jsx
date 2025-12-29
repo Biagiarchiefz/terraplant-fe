@@ -16,7 +16,7 @@ const Cart = () => {
 
   useEffect(() => {
     if (!user) return;
-    fetchCart(user.id)
+    fetchCart(user.id);
   }, [user]);
 
   // Loading state
@@ -60,12 +60,12 @@ const Cart = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 px-50 py-6 mt-15">
-      <div className="grid grid-cols-[3fr_1.5fr] gap-12">
+    <div className="min-h-screen bg-gray-50 px-4 sm:px-50 py-6 mt-15">
+      <div className="grid grid-cols-1 lg:grid-cols-[3fr_1.5fr] gap-6 lg:gap-12">
         {/* ===== TABLE AREA ===== */}
         <div className="overflow-hidden">
           {/* ===== HEADER ===== */}
-          <div className="grid grid-cols-[4fr_1fr_1fr] px-4 py-3 font-semibold">
+          <div className="hidden lg:grid grid-cols-[4fr_1fr_1fr] px-4 py-3 font-semibold">
             <h1>Product</h1>
             <h1 className="text-center">Number</h1>
             <h1 className="text-right">Amount</h1>
@@ -75,30 +75,32 @@ const Cart = () => {
           {carts.items.map((cart) => (
             <div
               key={cart.id}
-              className="grid grid-cols-[4fr_1fr_1fr] items-center px-4 py-4 border-t border-black/30 relative"
+              className="grid grid-cols-1 lg:grid-cols-[4fr_1fr_1fr] items-center px-4 py-4 border-t border-black/30 relative gap-4 lg:gap-0"
             >
               <button
                 onClick={() => deleteItem(cart.id, user.id)}
-                className="absolute top-1.5 right-0"
+                className="absolute top-1.5 right-0 lg:right-0 z-10"
               >
                 <X size={18} />
               </button>
 
               {/* PRODUCT */}
-              <div className="grid grid-cols-3 items-center gap-3">
+              <div className="grid grid-cols-[auto_1fr] lg:grid-cols-3 items-center gap-3 pr-6">
                 <img
                   src={cart.gambar}
                   alt=""
                   className="w-16 h-16 bg-gray-200 rounded"
                 />
-                <h1>{cart.nama}</h1>
-                <h1 className="text-sm text-gray-500">
-                  Rp.{cart.harga.toLocaleString()}
-                </h1>
+                <div className="flex flex-col lg:contents">
+                  <h1>{cart.nama}</h1>
+                  <h1 className="text-sm text-gray-500">
+                    Rp.{cart.harga.toLocaleString()}
+                  </h1>
+                </div>
               </div>
 
               {/* Nomor */}
-              <div className="flex justify-center">
+              <div className="flex justify-start lg:justify-center">
                 <div className="flex items-center border border-gray-300 rounded">
                   <button
                     onClick={() => decrementItem(cart)}
@@ -124,31 +126,38 @@ const Cart = () => {
               </div>
 
               {/* Total */}
-              <div className="text-right font-semibold">
-                <p> Rp.{(cart.qty * cart.harga).toLocaleString()}</p>
+              <div className="text-left lg:text-right font-semibold">
+                <p className="text-sm lg:text-base">
+                  <span className="lg:hidden">Total: </span>
+                  Rp.{(cart.qty * cart.harga).toLocaleString()}
+                </p>
               </div>
             </div>
           ))}
         </div>
 
         {/* ===== SIDEBAR TOTAL ===== */}
-        <div className="bg-gray-100 mt-13">
-          <div className="border border-black/30  flex">
-            <input type="text" placeholder="Kode Diskon" className="p-2" />
-            <button className="border-l w-full px-6 border-black/30 cursor-pointer">
+        <div className="bg-gray-100 mt-0 lg:mt-13">
+          <div className="border border-black/30 flex">
+            <input
+              type="text"
+              placeholder="Kode Diskon"
+              className="p-2 flex-1"
+            />
+            <button className="border-l px-4 lg:px-6 border-black/30 cursor-pointer">
               Use
             </button>
           </div>
-          <h1 className="w-full border border-black/30  mt-3 p-2">Total</h1>
-          <div className="border border-black/30  flex justify-between p-2">
+          <h1 className="w-full border border-black/30 mt-3 p-2">Total</h1>
+          <div className="border border-black/30 flex justify-between p-2">
             <h1>Amount</h1>
             <p>Rp.{carts.grandTotal.toLocaleString()}</p>
           </div>
-          <div className="border border-black/30  flex justify-between p-2">
+          <div className="border border-black/30 flex justify-between p-2">
             <h1 className="font-bold">Total cost</h1>
             <p className="font-bold">Rp.{carts.grandTotal.toLocaleString()}</p>
           </div>
-          <div className="border border-black/30  flex justify-center items-center p-3">
+          <div className="border border-black/30 flex justify-center items-center p-3">
             <Link
               to={"/checkout"}
               className="bg-[#1B1B1B] w-full text-white py-2 px-9 cursor-pointer text-center"
@@ -158,12 +167,15 @@ const Cart = () => {
           </div>
         </div>
 
-        <div className="flex gap-10 border-t border-black/30 w-full pt-5 items-center">
-          <Link to="/catalog" className="border cursor-pointer px-20 py-2">
+        <div className="flex flex-col sm:flex-row gap-4 lg:gap-10 border-t border-black/30 w-full pt-5 items-center lg:col-span-2">
+          <Link
+            to="/catalog"
+            className="border cursor-pointer px-8 sm:px-20 py-2 w-full sm:w-auto text-center"
+          >
             To the catalog
           </Link>
 
-          <button className="border px-20 py-2 bg-[#1B1B1B] text-white">
+          <button className="border px-8 sm:px-20 py-2 bg-[#1B1B1B] text-white w-full sm:w-auto">
             Update
           </button>
         </div>

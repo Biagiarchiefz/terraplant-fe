@@ -18,13 +18,22 @@ import AdminPlantList from "./pages/admin/AdminPlantList";
 import AdminOrderList from "./pages/admin/AdminOrderList";
 import AdminOrderDetail from "./pages/admin/AdminOrderDetail";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import useCartStore from "./store/useCartStore";
 
 function App() {
   const initAuth = useAuthStore((state) => state.initAuth);
+  const user = useAuthStore((state) => state.user);
+  const fetchCart = useCartStore((state) => state.fetchCart);
 
   useEffect(() => {
     initAuth();
-  }, []);
+  }, [initAuth]);
+
+  useEffect(() => {
+    if (user?.id) {
+      fetchCart(user.id);
+    }
+  }, [user?.id, fetchCart]);
 
   return (
     <div className="">
