@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import plant1 from "../assets/images/plants1.webp";
 import { Minus, Plus } from "lucide-react";
 import { Link, useParams } from "react-router";
 import { plantDetail } from "../services/plant.services";
@@ -13,7 +12,6 @@ const PlantDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const price = plant.harga;
   const totalPrice = quantity * price;
-  // const user = useAuthStore((state) => state.user);
 
   const fetchCart = useCartStore((state) => state.fetchCart);
   const user = useAuthStore((state) => state.user);
@@ -60,7 +58,7 @@ const PlantDetail = () => {
           {/* Product Image */}
           <div className="bg-gray-100 rounded-lg overflow-hidden">
             <img
-              src={plant1}
+              src={plant.gambar}
               alt="Ficus Lirata"
               className="w-full h-[500px] object-cover"
             />

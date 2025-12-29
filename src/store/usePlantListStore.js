@@ -6,16 +6,15 @@ export const usePlantListStore = create((set) => ({
   loading: false,
 
   fetchPlants: async () => {
-    set({ loading: true });
-
     try {
       const response = await plantList();
-      // console.log(response.data)
-      set({ plants: response.data.data || [] });
-    } catch (err) {
-      console.error(err);
-    } finally {
-      set({ loading: false });
+      const plantsData = response.data.data.map((plant) => ({
+        ...plant,
+        image: plant.gambar?.[0] || plant.image, // Support both formats
+      }));
+      set({ plants: plantsData });
+    } catch (error) {
+      console.error("Error fetching data plants:", error);
     }
   },
 

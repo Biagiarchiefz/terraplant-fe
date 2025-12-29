@@ -19,7 +19,7 @@ const CatalogPlants = () => {
         {plants && (
           <Link
             to="/catalog"
-            className="border-b-2 font-semibold flex items-center cursor-pointer text-black/50"
+            className="border-b-2 font-semibold flex items-center cursor-pointer text-black/50   transition-transform duration-300 hover:scale-95 "
           >
             More
           </Link>

@@ -87,7 +87,7 @@ const Cart = () => {
               {/* PRODUCT */}
               <div className="grid grid-cols-3 items-center gap-3">
                 <img
-                  src={plant1}
+                  src={cart.gambar}
                   alt=""
                   className="w-16 h-16 bg-gray-200 rounded"
                 />

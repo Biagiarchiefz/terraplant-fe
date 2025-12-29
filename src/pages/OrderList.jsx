@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import OrderCard from "../components/OrderCard";
 import { Package, Filter } from "lucide-react";
-import { useOrderListUserStore } from "../store/useOrderListStore";
+import { useOrderListUserStore } from "../store/useOrderListUserStore";
 
 const OrderList = () => {
   const [statusFilter, setStatusFilter] = useState("all");
