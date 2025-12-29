@@ -119,84 +119,86 @@ const Catalog = () => {
 
   return (
     <div className="pb-10">
-      <div className='flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 text-white bg-[url("/src/assets/images/catalog-hero.jpeg")] bg-no-repeat bg-cover bg-center h-screen'>
+      <div className='flex flex-col items-start justify-center px-4 sm:px-6 md:px-16 lg:px-24 xl:px-32 text-white bg-[url("/src/assets/images/catalog-hero.jpg")] bg-no-repeat bg-cover bg-center h-[60vh] sm:h-[70vh] md:h-screen'>
         {/* Text Plant  */}
       </div>
 
-      <div className="px-20 relative top-[-90px]">
-        <div className="rounded-2xl shadow-sm p-4 mb-8 bg-white">
-          <div className="flex items-center justify-between gap-4">
-            <h2 className="text-3xl font-semibold text-gray-900 whitespace-nowrap">
+      <div className="px-4 sm:px-6 md:px-12 lg:px-20 relative top-[-60px] sm:top-[-90px]">
+        <div className="rounded-2xl shadow-sm p-4 sm:p-6 mb-8 bg-white">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 whitespace-nowrap">
               Give All You Need
             </h2>
 
-            <div className="flex items-center gap-2 bg-gray-100 rounded-full pl-4 border border-gray-200">
+            <div className="flex items-center gap-2 bg-gray-100 rounded-full pl-4 border border-gray-200 w-full sm:w-auto">
               <Search className="w-4 h-4 text-gray-500" />
               <input
                 type="text"
                 placeholder="Search plants..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-transparent text-sm text-gray-900 placeholder:text-gray-500 outline-none py-2 w-64"
+                className="bg-transparent text-sm text-gray-900 placeholder:text-gray-500 outline-none py-2 w-full sm:w-64"
               />
               <button
                 onClick={handleSearch}
-                className="rounded-full px-6 py-2 text-white bg-gray-900 hover:bg-gray-800 transition-colors"
+                className="rounded-full px-4 sm:px-6 py-2 text-white bg-gray-900 hover:bg-gray-800 transition-colors text-sm"
               >
                 Search
               </button>
             </div>
           </div>
 
-          <div className="flex gap-5 mt-10">
+          <div className="flex flex-col md:flex-row gap-5 mt-6 sm:mt-10">
             {/* sidebar filter */}
-            <div className="md:w-[250px]">
-              <h1 className="text-xl font-bold text-gray-900">Category</h1>
-              <div className="mt-3 flex flex-col gap-1">
+            <div className="w-full md:w-[250px]">
+              <h1 className="text-lg sm:text-xl font-bold text-gray-900">
+                Category
+              </h1>
+              <div className="mt-3 flex flex-row md:flex-col gap-2 md:gap-1 overflow-x-auto md:overflow-x-visible pb-2 md:pb-0">
                 <button
                   onClick={() => setSelectedCategory("all")}
-                  className={`flex items-center w-full p-3 rounded-lg gap-2 transition-colors ${
+                  className={`flex items-center whitespace-nowrap md:w-full p-3 rounded-lg gap-2 transition-colors ${
                     selectedCategory === "all"
                       ? "bg-green-100 text-[#034032] font-medium"
                       : "hover:bg-gray-100 text-gray-700"
                   }`}
                 >
                   <Sprout className="w-5 h-5" />
-                  Semua Tanaman
+                  <span className="text-sm sm:text-base">Semua Tanaman</span>
                 </button>
 
                 <button
                   onClick={() => setSelectedCategory("indoor")}
-                  className={`flex items-center w-full p-3 rounded-lg gap-2 transition-colors ${
+                  className={`flex items-center whitespace-nowrap md:w-full p-3 rounded-lg gap-2 transition-colors ${
                     selectedCategory === "indoor"
                       ? "bg-green-100 text-[#034032] font-medium"
                       : "hover:bg-gray-100 text-gray-700"
                   }`}
                 >
                   <Rose className="w-5 h-5" />
-                  Tanaman Indoor
+                  <span className="text-sm sm:text-base">Tanaman Indoor</span>
                 </button>
 
                 <button
                   onClick={() => setSelectedCategory("outdoor")}
-                  className={`flex items-center w-full p-3 rounded-lg gap-2 transition-colors ${
+                  className={`flex items-center whitespace-nowrap md:w-full p-3 rounded-lg gap-2 transition-colors ${
                     selectedCategory === "outdoor"
                       ? "bg-green-100 text-[#034032] font-medium"
                       : "hover:bg-gray-100 text-gray-700"
                   }`}
                 >
                   <Clover className="w-5 h-5" />
-                  Tanaman Outdoor
+                  <span className="text-sm sm:text-base">Tanaman Outdoor</span>
                 </button>
               </div>
             </div>
 
             {/* plant list  */}
-            <div className="md:w-full">
+            <div className="w-full">
               {currentPlants.length > 0 ? (
                 <>
                   <PlantCard
-                    classname="grid grid-cols-1 md:grid-cols-3 gap-4"
+                    classname="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
                     plants={currentPlants}
                   />
                   {filteredPlants.length > ITEMS_PER_PAGE && (

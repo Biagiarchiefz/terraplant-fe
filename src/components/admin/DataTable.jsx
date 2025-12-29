@@ -120,40 +120,44 @@ const DataTable = ({
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-4 md:p-6 bg-gray-50 min-h-screen">
       {/* Header Section */}
-      <div className="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="mb-4 md:mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 md:gap-4">
         {/* Search Bar */}
         <div className="relative w-full md:w-96">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 md:w-5 md:h-5" />
           <input
             type="text"
             placeholder={searchPlaceholder}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="w-full pl-9 md:pl-10 pr-4 py-2.5 md:py-3 text-sm md:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#047158] focus:border-transparent"
           />
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-3">
+        <div className="flex gap-2 md:gap-3 w-full md:w-auto">
           <button
             onClick={handleRefresh}
             disabled={isLoading}
-            className="flex items-center gap-2 px-4 py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
+            className="flex items-center justify-center gap-2 px-3 md:px-4 py-2.5 md:py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 flex-1 md:flex-initial text-sm md:text-base"
           >
             <RefreshCw
-              className={`w-5 h-5 ${isLoading ? "animate-spin" : ""}`}
+              className={`w-4 h-4 md:w-5 md:h-5 ${
+                isLoading ? "animate-spin" : ""
+              }`}
             />
-            <span className="font-medium">Perbarui Data</span>
+            <span className="font-medium">Perbarui</span>
           </button>
           {onAdd && (
             <button
               onClick={onAdd}
-              className="flex items-center gap-2 px-4 py-3 bg-[#047158] text-white rounded-lg hover:bg-green-700 transition-colors"
+              className="flex items-center justify-center gap-2 px-3 md:px-4 py-2.5 md:py-3 bg-[#047158] text-white rounded-lg hover:bg-green-700 transition-colors flex-1 md:flex-initial text-sm md:text-base"
             >
-              <Plus className="w-5 h-5" />
-              <span className="font-medium">{addButtonText}</span>
+              <Plus className="w-4 h-4 md:w-5 md:h-5" />
+              <span className="font-medium whitespace-nowrap">
+                {addButtonText}
+              </span>
             </button>
           )}
         </div>
@@ -162,22 +166,22 @@ const DataTable = ({
       {/* Table Section */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-max">
             <thead className="bg-white border-b border-gray-200">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-bold text-[#047158] uppercase tracking-wider">
+                <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-[#047158] uppercase tracking-wider whitespace-nowrap">
                   NO.
                 </th>
                 {columns.map((column, index) => (
                   <th
                     key={index}
-                    className="px-6 py-4 text-left text-sm font-bold text-[#047158] uppercase tracking-wider"
+                    className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-[#047158] uppercase tracking-wider whitespace-nowrap"
                   >
                     {column.header}
                   </th>
                 ))}
                 {showActions && (
-                  <th className="px-6 py-4 text-left text-sm font-bold text-[#047158] uppercase tracking-wider">
+                  <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-[#047158] uppercase tracking-wider whitespace-nowrap">
                     AKSI
                   </th>
                 )}
@@ -190,38 +194,38 @@ const DataTable = ({
                     key={item.id}
                     className="hover:bg-gray-50 transition-colors"
                   >
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900">
                       {startIndex + index + 1}
                     </td>
                     {renderRow(item, startIndex + index)}
                     {showActions && (
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center gap-2">
+                      <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap">
+                        <div className="flex items-center gap-1 md:gap-2">
                           {onView && (
                             <button
                               onClick={() => onView(item)}
-                              className="p-2 text-blue-600 hover:bg-blue-200 rounded-lg transition-colors"
+                              className="p-1.5 md:p-2 text-blue-600 hover:bg-blue-200 rounded-lg transition-colors"
                               title="Lihat detail"
                             >
-                              <Eye className="w-5 h-5" />
+                              <Eye className="w-4 h-4 md:w-5 md:h-5" />
                             </button>
                           )}
                           {onEdit && (
                             <button
                               onClick={() => onEdit(item)}
-                              className="p-2 text-orange-600 hover:bg-orange-200 rounded-lg transition-colors"
+                              className="p-1.5 md:p-2 text-orange-600 hover:bg-orange-200 rounded-lg transition-colors"
                               title="Edit"
                             >
-                              <Pencil className="w-5 h-5" />
+                              <Pencil className="w-4 h-4 md:w-5 md:h-5" />
                             </button>
                           )}
                           {onDelete && (
                             <button
                               onClick={() => handleDelete(item)}
-                              className="p-2 text-red-600 hover:bg-red-200 rounded-lg transition-colors"
+                              className="p-1.5 md:p-2 text-red-600 hover:bg-red-200 rounded-lg transition-colors"
                               title="Hapus"
                             >
-                              <Trash2 className="w-5 h-5" />
+                              <Trash2 className="w-4 h-4 md:w-5 md:h-5" />
                             </button>
                           )}
                         </div>
@@ -233,7 +237,7 @@ const DataTable = ({
                 <tr>
                   <td
                     colSpan={columns.length + (showActions ? 2 : 1)}
-                    className="px-6 py-8 text-center text-gray-500"
+                    className="px-3 md:px-6 py-6 md:py-8 text-center text-gray-500 text-sm"
                   >
                     Tidak ada data ditemukan
                   </td>
