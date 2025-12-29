@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Flower,
   Menu,
@@ -17,6 +17,8 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -59,6 +61,17 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowUserDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -73,6 +86,11 @@ const Navbar = () => {
     if (showSearch) {
       setSearchQuery("");
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+    setShowUserDropdown(false);
   };
 
   return (
@@ -149,12 +167,12 @@ const Navbar = () => {
                 }}
               >
                 {/* Search Input with Animation */}
-                <div className="relative">
+                <div className="relative flex items-center">
                   <form
                     onSubmit={handleSearch}
                     className={`absolute right-8 top-1/2 -translate-y-1/2 transition-all duration-300 ease-in-out ${
                       showSearch
-                        ? "w-64 opacity-100 pointer-events-auto"
+                        ? "w-50 opacity-100 pointer-events-auto"
                         : "w-0 opacity-0 pointer-events-none"
                     }`}
                   >
@@ -169,7 +187,7 @@ const Navbar = () => {
                   </form>
                   <button
                     onClick={toggleSearch}
-                    className="hover:scale-110 transition-transform relative z-10"
+                    className="hover:scale-110 transition-transform relative z-10 flex items-center justify-center"
                   >
                     <Search />
                   </button>
@@ -177,7 +195,7 @@ const Navbar = () => {
 
                 <Link
                   to="/cart"
-                  className="hover:scale-110 transition-transform relative"
+                  className="hover:scale-110 transition-transform relative flex items-center justify-center"
                 >
                   <ShoppingBasket />
                   {totalItems > 0 && (
@@ -187,14 +205,28 @@ const Navbar = () => {
                   )}
                 </Link>
 
-                <div
-                  className="flex gap-2 items-center cursor-pointer"
-                  onClick={logout}
-                >
-                  <div className="border rounded-full p-1">
-                    <UserRound size={18} />
+                <div className="relative flex items-center" ref={dropdownRef}>
+                  <div
+                    className="flex gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity"
+                    onClick={() => setShowUserDropdown(!showUserDropdown)}
+                  >
+                    <div className="border rounded-full p-1">
+                      <UserRound size={18} />
+                    </div>
+                    <p className="font-semibold">Hi, {user.nama}</p>
                   </div>
-                  <p className="font-semibold">Hi, {user.nama}</p>
+
+                  {/* Dropdown Menu */}
+                  {showUserDropdown && (
+                    <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1">
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -210,7 +242,7 @@ const Navbar = () => {
                   : "#1B1B1B",
               }}
             >
-              <div className="relative">
+              <div className="relative flex items-center">
                 <form
                   onSubmit={handleSearch}
                   className={`absolute right-8 top-1/2 -translate-y-1/2 transition-all duration-300 ease-in-out ${
@@ -228,11 +260,14 @@ const Navbar = () => {
                     autoFocus={showSearch}
                   />
                 </form>
-                <button onClick={toggleSearch} className="relative z-10">
+                <button
+                  onClick={toggleSearch}
+                  className="relative z-10 flex items-center justify-center"
+                >
                   <Search />
                 </button>
               </div>
-              <div className="relative">
+              <div className="relative flex items-center justify-center">
                 <ShoppingBasket />
                 {totalItems > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
@@ -240,7 +275,10 @@ const Navbar = () => {
                   </span>
                 )}
               </div>
-              <button onClick={() => setIsMenuOpen(true)}>
+              <button
+                onClick={() => setIsMenuOpen(true)}
+                className="flex items-center justify-center"
+              >
                 <Menu />
               </button>
             </div>
