@@ -253,8 +253,8 @@ const Checkout = () => {
                       </button>
 
                       <img
-                        src={item.image}
-                        alt={item.name}
+                        src={item.gambar}
+                        alt={item.nama}
                         className="w-16 h-16 object-cover rounded-lg flex-shrink-0"
                       />
 

@@ -8,13 +8,13 @@ const AboutCompany = () => {
       <div className="flex flex-col gap-14 md:flex-row relative">
         <div className="flex flex-col gap-6">
           <Title title="Company" />
-          <h1 className="pr-4 md:max-w-160">
+          <p className="pr-4 md:max-w-160">
             Kami adalah toko tanaman yang berfokus menghadirkan keindahan dan 
             kesegaran alam ke setiap ruang maupun diluar ruangan. Dengan pilihan tanaman hias berkualitas dan 
             perawatan yang tepat, kami membantu menciptakan suasana yang lebih hidup, nyaman, 
             dan menenangkan di rumah maupun di tempat kerja Anda. Setiap tanaman dipilih dengan 
             penuh perhatian agar tumbuh sehat dan tahan lama.
-          </h1>
+          </p>
         </div>
 
         <img

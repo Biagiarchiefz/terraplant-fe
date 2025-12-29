@@ -18,10 +18,10 @@ const Footer = () => {
           <div className="lg:col-span-1 flex justify-between items-center w-full md:flex-col">
             <h2 className="text-3xl font-bold md:mb-4">TerraPlant</h2>
             <div className="flex gap-3">
-              <button className="rounded-full border bg-[#F5F5F5] text-[#1B1B1B] hover:bg-[#1B1B1B] hover:text-[#F5F5F5]">
+              <button className="rounded-full border bg-[#F5F5F5] text-[#1B1B1B] hover:bg-[#1B1B1B] hover:text-[#F5F5F5] p-2">
                 <Facebook size={20} />
               </button>
-              <button className="rounded-full border bg-[#F5F5F5] text-[#1B1B1B] hover:bg-[#1B1B1B] hover:text-[#F5F5F5]">
+              <button className="rounded-full border bg-[#F5F5F5] text-[#1B1B1B] hover:bg-[#1B1B1B] hover:text-[#F5F5F5] p-2">
                 <Instagram size={20} />
               </button>
             </div>
