@@ -1,4 +1,4 @@
-import { Search, Sprout } from "lucide-react";
+import { Clover, Rose, Search, Sprout } from "lucide-react";
 import React, { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { usePlants } from "../hooks/usePlants";
@@ -119,7 +119,7 @@ const Catalog = () => {
 
   return (
     <div className="pb-10">
-      <div className='flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 text-white bg-[url("/src/assets/images/catalog-hero.jpg")] bg-no-repeat bg-cover bg-center h-screen'>
+      <div className='flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 text-white bg-[url("/src/assets/images/catalog-hero.jpeg")] bg-no-repeat bg-cover bg-center h-screen'>
         {/* Text Plant  */}
       </div>
 
@@ -155,10 +155,11 @@ const Catalog = () => {
               <div className="mt-3 flex flex-col gap-1">
                 <button
                   onClick={() => setSelectedCategory("all")}
-                  className={`flex items-center w-full p-3 rounded-lg gap-2 transition-colors ${selectedCategory === "all"
-                    ? "bg-green-100 text-[#034032] font-medium"
-                    : "hover:bg-gray-100 text-gray-700"
-                    }`}
+                  className={`flex items-center w-full p-3 rounded-lg gap-2 transition-colors ${
+                    selectedCategory === "all"
+                      ? "bg-green-100 text-[#034032] font-medium"
+                      : "hover:bg-gray-100 text-gray-700"
+                  }`}
                 >
                   <Sprout className="w-5 h-5" />
                   Semua Tanaman
@@ -166,23 +167,25 @@ const Catalog = () => {
 
                 <button
                   onClick={() => setSelectedCategory("indoor")}
-                  className={`flex items-center w-full p-3 rounded-lg gap-2 transition-colors ${selectedCategory === "indoor"
-                    ? "bg-green-100 text-[#034032] font-medium"
-                    : "hover:bg-gray-100 text-gray-700"
-                    }`}
+                  className={`flex items-center w-full p-3 rounded-lg gap-2 transition-colors ${
+                    selectedCategory === "indoor"
+                      ? "bg-green-100 text-[#034032] font-medium"
+                      : "hover:bg-gray-100 text-gray-700"
+                  }`}
                 >
-                  <Sprout className="w-5 h-5" />
+                  <Rose className="w-5 h-5" />
                   Tanaman Indoor
                 </button>
 
                 <button
                   onClick={() => setSelectedCategory("outdoor")}
-                  className={`flex items-center w-full p-3 rounded-lg gap-2 transition-colors ${selectedCategory === "outdoor"
-                    ? "bg-green-100 text-[#034032] font-medium"
-                    : "hover:bg-gray-100 text-gray-700"
-                    }`}
+                  className={`flex items-center w-full p-3 rounded-lg gap-2 transition-colors ${
+                    selectedCategory === "outdoor"
+                      ? "bg-green-100 text-[#034032] font-medium"
+                      : "hover:bg-gray-100 text-gray-700"
+                  }`}
                 >
-                  <Sprout className="w-5 h-5" />
+                  <Clover className="w-5 h-5" />
                   Tanaman Outdoor
                 </button>
               </div>

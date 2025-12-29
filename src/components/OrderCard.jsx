@@ -78,7 +78,7 @@ const OrderCard = ({ order }) => {
         <div className="flex items-center gap-3 mb-4">
           <div className="w-14 h-14 rounded-xl bg-green-50 border-2 border-white overflow-hidden">
             <img
-              src={plane1}
+              src={order.preview?.gambar}
               alt={order.preview?.nama}
               className="w-full h-full object-cover"
             />

@@ -22,7 +22,11 @@ export const plantDetail = async (id) => {
 
 export const createPlant = async (payload) => {
   try {
-    const response = await api.post(`/plants/`, payload);
+    const response = await api.post(`/plants/`, payload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response;
   } catch (err) {
     console.log(err.message);
@@ -32,7 +36,11 @@ export const createPlant = async (payload) => {
 
 export const updatePlant = async (id, payload) => {
   try {
-    const response = await api.put(`/plants/${id}`, payload);
+    const response = await api.put(`/plants/${id}`, payload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response;
   } catch (err) {
     console.log(err.message);
@@ -40,7 +48,7 @@ export const updatePlant = async (id, payload) => {
   }
 };
 
-export const deletePlant = async (id) => {
+ export const deletePlant = async (id) => {
   try {
     const response = await api.delete(`/plants/${id}`);
     return response;
@@ -49,8 +57,6 @@ export const deletePlant = async (id) => {
     throw error;
   }
 };
-
-
 
 export const plantTopSellAdmin = async () => {
   try {

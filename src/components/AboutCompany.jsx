@@ -9,12 +9,11 @@ const AboutCompany = () => {
         <div className="flex flex-col gap-6">
           <Title title="Company" />
           <h1 className="pr-4 md:max-w-160">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis
-            itaque, reprehenderit at voluptatum necessitatibus suscipit tenetur
-            eaque, beatae deleniti dolore blanditiis velit qui quae ipsum.
-            Pariatur ipsum sit doloribus vel blanditiis voluptatem voluptates
-            consequuntur id, incidunt non cumque cum voluptatibus quidem hic,
-            modi in minima! Magnam suscipit voluptatem ea porro.
+            Kami adalah toko tanaman yang berfokus menghadirkan keindahan dan 
+            kesegaran alam ke setiap ruang maupun diluar ruangan. Dengan pilihan tanaman hias berkualitas dan 
+            perawatan yang tepat, kami membantu menciptakan suasana yang lebih hidup, nyaman, 
+            dan menenangkan di rumah maupun di tempat kerja Anda. Setiap tanaman dipilih dengan 
+            penuh perhatian agar tumbuh sehat dan tahan lama.
           </h1>
         </div>
 

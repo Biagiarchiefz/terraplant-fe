@@ -18,6 +18,7 @@ import {
   CheckCircle,
   Leaf,
 } from "lucide-react";
+import { alertConfirm, alertSucces } from "../lib/alert";
 
 const statusConfig = {
   pembayaran: {
@@ -64,8 +65,8 @@ const OrderDetail = () => {
     try {
       setLoading(true);
       const response = await orderDetail(id);
-      console.log(response.data.data);
-      // Response sudah sesuai format yang dibutuhkan, tidak perlu mapping
+      // console.log(response.data.data);
+
       setOrder(response.data.data);
     } catch (err) {
       console.log(err);
@@ -80,15 +81,15 @@ const OrderDetail = () => {
 
   const copyToClipboard = (text, label) => {
     navigator.clipboard.writeText(text);
-    alert(`${label} berhasil disalin!`);
+    alertSucces(`${label} berhasil disalin!`);
   };
 
   const handleCompleteOrder = async () => {
-    if (
-      !confirm(
-        "Apakah Anda yakin telah menerima pesanan ini? Status akan diubah menjadi Selesai."
-      )
-    ) {
+    const confirmed = await alertConfirm(
+      "Apakah Anda yakin telah menerima pesanan ini? Status akan diubah menjadi Selesai."
+    );
+
+    if (!confirmed) {
       return;
     }
 
@@ -103,13 +104,13 @@ const OrderDetail = () => {
       // Update local state
       setOrder((prev) => ({ ...prev, status: "selesai" }));
 
-      alert("Terima kasih! Pesanan telah selesai.");
+      alertSucces("Terima kasih! Pesanan telah selesai.");
 
       // Refresh data order
       await fetchDetailOrder();
     } catch (error) {
       console.error("Error completing order:", error);
-      alert("Gagal menyelesaikan pesanan. Silakan coba lagi.");
+      alertSucces("Gagal menyelesaikan pesanan. Silakan coba lagi.");
     } finally {
       setCompleting(false);
     }
@@ -262,7 +263,7 @@ const OrderDetail = () => {
                   >
                     <div className="w-20 h-20 rounded-xl bg-green-50 overflow-hidden flex-shrink-0">
                       <img
-                        src={plant1}
+                        src={item.gambar}
                         alt={item.nama}
                         className="w-full h-full object-cover"
                       />
@@ -428,9 +429,12 @@ const OrderDetail = () => {
                 </button>
               )}
               {order.status === "selesai" && (
-                <button className="w-full border border-gray-300 text-gray-900 px-4 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                <Link
+                  to="/catalog"
+                  className="w-full border border-gray-300 text-gray-900 px-4 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center"
+                >
                   Beli Lagi
-                </button>
+                </Link>
               )}
             </div>
           </div>
