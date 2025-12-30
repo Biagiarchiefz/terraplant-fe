@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://terraplant-be.vercel.app/api",
-  // baseURL: "http://localhost:8001/api",
+  // baseURL: "https://terraplant-be.vercel.app/api",
+  baseURL: "http://localhost:8001/api",
 });
 
 // interceptoprs setiap request jadi semua request bakal bawa token
