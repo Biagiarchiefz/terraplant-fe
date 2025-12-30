@@ -9,12 +9,12 @@ const Hero = () => {
         <img
           src={Vector}
           alt=""
-          className="absolute max-w-[350px] bottom-0 right-5 md:max-w-[370px] md:bottom-0 md:right-[320px]"
+          className="absolute max-w-[350px] bottom-0 left-1/2 -translate-x-1/2 md:max-w-[370px] md:left-auto md:translate-x-0 md:right-[320px]"
         />
 
         <div className="bg-[#F5F5F5] md:col-span-2 flex flex-col items-center justify-center">
           <div className="hidden md:flex flex-col gap-6 mt-[100px] max-w-100">
-            <h1 className="text-2xl md:text-5xl tracking-[2px] font-bold text-[#034032] leading-[60px]">
+            <h1 className="text-2xl md:text-5xl tracking-[2px] font-bold text-[#034032] leading-[45px]">
               ADD GREENERY TO YOUR HOME
             </h1>
 
