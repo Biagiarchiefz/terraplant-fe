@@ -47,7 +47,7 @@ const Navbar = () => {
     },
     {
       name: "Contacts",
-      path: "/",
+      path: "/contacts",
     },
   ];
 
