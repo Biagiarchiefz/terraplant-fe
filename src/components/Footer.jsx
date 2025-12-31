@@ -5,7 +5,6 @@ const Footer = () => {
   const navigationLinks = [
     { label: "Catalog", href: "/catalog" },
     { label: "Payment", href: "/payment" },
-    { label: "Reviews", href: "/reviews" },
     { label: "Contacts", href: "/contacts" },
     { label: "Company", href: "/company" },
   ];
