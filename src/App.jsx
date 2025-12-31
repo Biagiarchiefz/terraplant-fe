@@ -19,6 +19,7 @@ import AdminOrderList from "./pages/admin/AdminOrderList";
 import AdminOrderDetail from "./pages/admin/AdminOrderDetail";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import useCartStore from "./store/useCartStore";
+import Contact from "./pages/Contact";
 
 function App() {
   const initAuth = useAuthStore((state) => state.initAuth);
@@ -47,6 +48,7 @@ function App() {
             {/* Landing Page */}
             <Route path="/" element={<Home />} />
             <Route path="/catalog" element={<Catalog />} />
+            <Route path="/contacts" element={<Contact />} />
 
             <Route element={<ProtectedRoute />}>
               <Route path="/plant/:id" element={<PlantDetail />} />
