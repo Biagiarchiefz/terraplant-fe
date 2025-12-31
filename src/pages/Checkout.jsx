@@ -35,16 +35,46 @@ const Checkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Form Data:", formData);
-    const response = await checkout(formData);
-    // console.log(response);
-    if(response.status == 200) {
-      await alertSucces("Pembayaran Berhasil")
-      navigate("/order-list")
-    } else {
-      await alertError("Barang gagal di checkout")
+    
+    try {
+      const response = await checkout(formData);
+      
+      if (response.status === 200) {
+        const { paymentToken, redirectUrl } = response.data;
+        
+        // Trigger Midtrans Snap popup
+        if (window.snap) {
+          window.snap.pay(paymentToken, {
+            onSuccess: async function(result) {
+              console.log('Payment success:', result);
+              await alertSucces("Pembayaran Berhasil");
+              navigate("/order-list");
+            },
+            onPending: async function(result) {
+              console.log('Payment pending:', result);
+              await alertSucces("Pembayaran sedang diproses");
+              navigate("/order-list");
+            },
+            onError: async function(result) {
+              console.log('Payment error:', result);
+              await alertError("Pembayaran gagal");
+            },
+            onClose: async function() {
+              console.log('Payment popup closed');
+              await alertError("Anda menutup popup pembayaran");
+            }
+          });
+        } else {
+          // Fallback ke redirect URL jika Snap tidak tersedia
+          window.location.href = redirectUrl;
+        }
+      } else {
+        await alertError("Barang gagal di checkout");
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      await alertError("Terjadi kesalahan saat checkout");
     }
-
   };
 
   const fetchCart = async () => {
@@ -56,6 +86,20 @@ const Checkout = () => {
   useEffect(() => {
     if (!user) return;
     fetchCart();
+    
+    // Load Midtrans Snap script
+    const midtransScriptUrl = 'https://app.sandbox.midtrans.com/snap/snap.js';
+    const midtransClientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY;
+    
+    let scriptTag = document.createElement('script');
+    scriptTag.src = midtransScriptUrl;
+    scriptTag.setAttribute('data-client-key', midtransClientKey);
+    
+    document.body.appendChild(scriptTag);
+    
+    return () => {
+      document.body.removeChild(scriptTag);
+    };
   }, [user]);
 
   return (
@@ -181,7 +225,7 @@ const Checkout = () => {
                       onChange={handleInputChange}
                       className="w-4 h-4 "
                     />
-                    <CreditCard className="w-6 h-6 text-gray-400 group-hover:text-green-600 transition-colors" />
+                    <CreditCard className="w-6 h-6 text-gray-400 group-hover:text-[#006850] transition-colors" />
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-gray-900">
                         Kartu Kredit
@@ -201,7 +245,7 @@ const Checkout = () => {
                       onChange={handleInputChange}
                       className="w-4 h-4"
                     />
-                    <Wallet className="w-6 h-6 text-gray-400 transition-colors" />
+                    <Wallet className="w-6 h-6 text-gray-400 transition-colors group-hover:text-[#006850]" />
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-gray-900">
                         E-Wallet
@@ -221,7 +265,7 @@ const Checkout = () => {
                       onChange={handleInputChange}
                       className="w-4 h-4"
                     />
-                    <Building2 className="w-6 h-6 text-gray-400 transition-colors" />
+                    <Building2 className="w-6 h-6 text-gray-400 transition-colors group-hover:text-[#006850]" />
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-gray-900">
                         Transfer Bank

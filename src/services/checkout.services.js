@@ -5,7 +5,7 @@ export const checkout = async (payload) => {
     const response = await api.post("/checkout", payload);
     return response;
   } catch (err) {
-    console.log(err.message);
+    console.error("Checkout error:", err.message);
     throw err;
   }
 };
