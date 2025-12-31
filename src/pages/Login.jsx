@@ -82,10 +82,10 @@ const Login = () => {
           <div className="mx-auto w-full max-w-md">
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-foreground mb-2">
-                Welcome back
+                Selamat Datang
               </h1>
               <p className="text-muted-foreground">
-                Login to your Acme Inc account
+                Akses akun Terraplant Anda sekarang
               </p>
             </div>
 
@@ -103,7 +103,7 @@ const Login = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="masukkan email..."
+                  placeholder="Masukkan email..."
                   className="w-full h-12 px-4 rounded-lg border border-black/20 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   required
                 />
@@ -121,7 +121,7 @@ const Login = () => {
                     href="#"
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    Forgot your password?
+                    Lupa password?
                   </a>
                 </div>
                 <input
@@ -130,7 +130,7 @@ const Login = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  placeholder="masukkan password..."
+                  placeholder="Masukkan password..."
                   className="w-full h-12 px-4 rounded-lg border border-black/20 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   required
                 />
@@ -146,7 +146,7 @@ const Login = () => {
 
             <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border mb-7">
               <span className="relative z-10 bg-background px-2 text-muted-foreground bg-white">
-                Or continue with
+                Atau lanjutkan dengan
               </span>
             </div>
 
@@ -189,12 +189,12 @@ const Login = () => {
             </div>
 
             <p className="text-center mt-8 text-muted-foreground">
-              Don't have an account?{" "}
+              Belum punya akun? {" "}
               <Link
                 to={"/register"}
                 className="text-foreground font-medium hover:underline"
               >
-                Sign up
+                Registrasi
               </Link>
             </p>
           </div>
