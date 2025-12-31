@@ -1,12 +1,11 @@
-# 🪴 Terraplant - Dashboard Pengelolaan Tanaman
-
-Terraplant adalah platform web berbasis React yang dirancang untuk membantu pecinta tanaman mengelola koleksi hijau mereka dengan lebih mudah dan terorganisir.
+# 🪴 TerraPlant 
+TerraPlant adalah platform e-commerce tanaman hias yang dirancang untuk membantu pecinta tanaman menemukan dekorasi hijau terbaik untuk rumah mereka. Web ini menawarkan pengalaman belanja yang estetik dan mudah digunakan.
 
 ## 🚀 Fitur Utama
-* **Autentikasi Pengguna**: Sistem Login dan Registrasi yang aman.
-* **Integrasi Google Auth**: Masuk dengan mudah menggunakan akun Google.
-* **Manajemen Tanaman**: Pantau pertumbuhan dan perawatan tanaman Anda.
-* **Antarmuka Responsif**: Tampilan yang nyaman diakses dari perangkat apa pun.
+* **Katalog Tanaman Lengkap**: Berbagai pilihan kategori mulai dari Tanaman Indoor hingga Outdoor.
+* **Penyaringan Berdasarkan Kategori**: Memudahkan pengguna mencari tanaman yang sesuai dengan kebutuhan ruangan.
+* **Desain Responsif**: Tampilan yang modern, nyaman diakses.
+* **Sistem Autentikasi**: Fitur Sign Up dan Log In untuk pengalaman belanja yang personal.
 
 ## 🛠️ Teknologi yang Digunakan
 * **Frontend**: React.js, Vite
