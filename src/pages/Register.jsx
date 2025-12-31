@@ -51,10 +51,10 @@ const Register = () => {
           <div className="mx-auto w-full max-w-md">
             <div className="text-center mb-5">
               <h1 className="text-3xl font-bold text-foreground mb-2">
-                Welcome back
+                Ayo Bergabung!
               </h1>
               <p className="text-muted-foreground">
-                Login to your Acme Inc account
+                Mulai perjalanan hijau Anda di Terraplant
               </p>
             </div>
 
@@ -72,7 +72,7 @@ const Register = () => {
                   name="nama"
                   value={formData.nama}
                   onChange={handleChange}
-                  placeholder="masukkan nama..."
+                  placeholder="Masukkan nama..."
                   className="w-full h-12 px-4 rounded-lg border border-black/20 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   required
                 />
@@ -91,7 +91,7 @@ const Register = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="masukkan email..."
+                  placeholder="Masukkan email..."
                   className="w-full h-12 px-4 rounded-lg border border-black/20 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   required
                 />
@@ -109,7 +109,7 @@ const Register = () => {
                     href="#"
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    Forgot your password?
+                    Lupa password?
                   </a>
                 </div>
                 <input
@@ -118,7 +118,7 @@ const Register = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  placeholder="masukkan password..."
+                  placeholder="Masukkan password..."
                   className="w-full h-12 px-4 rounded-lg border border-black/20 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   required
                 />
@@ -130,7 +130,7 @@ const Register = () => {
                     htmlFor="Confirm Password"
                     className="block text-sm font-medium text-foreground"
                   >
-                    Confirm Password
+                    Konfirmasi Password
                   </label>
                 </div>
                 <input
@@ -139,7 +139,7 @@ const Register = () => {
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  placeholder="confirm password..."
+                  placeholder="Konfirmasi password..."
                   className="w-full h-12 px-4 rounded-lg border border-black/20 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   required
                 />
@@ -154,12 +154,12 @@ const Register = () => {
             </form>
 
             <p className="text-center mt-8 text-muted-foreground">
-              Don't have an account?{" "}
+              Sudah memiliki akun?{" "}
               <Link
                 to={"/login"}
                 className="text-foreground font-medium hover:underline"
               >
-                Sign In
+                Login
               </Link>
             </p>
           </div>
