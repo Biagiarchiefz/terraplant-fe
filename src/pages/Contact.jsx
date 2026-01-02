@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import { Phone, Mail, MapPin } from "lucide-react";
 
 const Contact = () => {
     return (

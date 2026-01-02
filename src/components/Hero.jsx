@@ -1,6 +1,7 @@
 import React from "react";
 import Vector from "../assets/images/Vector.webp";
-// import Button from "./Button";
+import { Link } from "react-router";
+
 
 const Hero = () => {
   return (
@@ -22,9 +23,9 @@ const Hero = () => {
               INDOOR PLANTS & FLOWERS
             </p>
 
-            <button className="text-[#f5f5f5] py-3 px-6 bg-[#1B1B1B] text-center w-full">
+            <Link to="/catalog" className="text-[#f5f5f5] py-3 px-6 bg-[#1B1B1B] text-center w-full">
               Show now
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -38,9 +39,9 @@ const Hero = () => {
           </h1>
 
           <p className="text-3xl max-w-80 ">INDOOR PLANTS & FLOWERS</p>
-          <button className="text-[#f5f5f5] py-3 px-6 bg-[#1B1B1B] text-center w-full">
+          <Link to="/catalog" className="text-[#f5f5f5] py-3 px-6 bg-[#1B1B1B] text-center w-full">
             Show now
-          </button>
+          </Link>
         </div>
       </div>
     </div>

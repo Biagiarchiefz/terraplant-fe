@@ -8,6 +8,7 @@ import {
   X,
 } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router";
+import logo from "../assets/images/logoTerra.png"
 import useAuthStore from "../store/useAuthStore";
 import useCartStore from "../store/useCartStore";
 // import useAuthStore from "../store/useAuthStore";
@@ -115,9 +116,10 @@ const Navbar = () => {
                 showSearch ? "md:opacity-100 opacity-0" : "opacity-100"
               }`}
             >
-              <h1 className="flex items-center text-2xl font-bold text-[#B1B1B]">
+              {/* <h1 className="flex items-center text-2xl font-bold text-[#B1B1B]">
                 TerraPlant
-              </h1>
+              </h1> */}
+              <img src={logo} alt="" className="w-[150px]"/>
             </div>
 
             {/*     Dektop Nav      */}
