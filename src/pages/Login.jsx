@@ -11,6 +11,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -21,10 +22,18 @@ const Login = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+    // Clear error untuk field yang sedang diubah
+    if (errors[e.target.name]) {
+      setErrors({
+        ...errors,
+        [e.target.name]: "",
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({});
 
     try {
       const response = await login(formData);
@@ -42,7 +51,22 @@ const Login = () => {
       }
     } catch (error) {
       console.error(error);
-      await alertError("Login Gagal");
+
+      // Tangkap error dari backend
+      if (error.response?.status === 400 && error.response?.data?.error) {
+        const errorMessage = error.response.data.error;
+
+        // Mapping error message ke field yang sesuai
+        if (errorMessage.toLowerCase().includes("email")) {
+          setErrors({ email: errorMessage });
+        } else if (errorMessage.toLowerCase().includes("password")) {
+          setErrors({ password: errorMessage });
+        } else {
+          await alertError(errorMessage);
+        }
+      } else {
+        await alertError("Login Gagal");
+      }
     }
   };
 
@@ -104,9 +128,14 @@ const Login = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Masukkan email..."
-                  className="w-full h-12 px-4 rounded-lg border border-black/20 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  className={`w-full h-12 px-4 rounded-lg border ${
+                    errors.email ? "border-red-500" : "border-black/20"
+                  } text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
                   required
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -131,9 +160,14 @@ const Login = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Masukkan password..."
-                  className="w-full h-12 px-4 rounded-lg border border-black/20 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  className={`w-full h-12 px-4 rounded-lg border ${
+                    errors.password ? "border-red-500" : "border-black/20"
+                  } text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
                   required
                 />
+                {errors.password && (
+                  <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+                )}
               </div>
 
               <button
@@ -189,7 +223,7 @@ const Login = () => {
             </div>
 
             <p className="text-center mt-8 text-muted-foreground">
-              Belum punya akun? {" "}
+              Belum punya akun?{" "}
               <Link
                 to={"/register"}
                 className="text-foreground font-medium hover:underline"

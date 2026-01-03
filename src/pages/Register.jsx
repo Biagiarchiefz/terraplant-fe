@@ -12,34 +12,66 @@ const Register = () => {
     confirmPassword: "",
   });
 
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
-      ...formData, // kita spread agar properti yang lainya tidak tertimpa, maka kita perlu juga ambil semua propertinya, ingat state object di react itu di replace bukan merge
+      ...formData,
       [e.target.name]: e.target.value,
     });
 
-    setError("");
+    // Clear error untuk field yang sedang diubah
+    if (errors[e.target.name]) {
+      setErrors({
+        ...errors,
+        [e.target.name]: "",
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({});
 
     if (formData.password !== formData.confirmPassword) {
-      setError("Password dan Confirm Password tidak cocok!");
+      setErrors({
+        confirmPassword: "Password dan Confirm Password tidak cocok!",
+      });
       return;
     }
 
-    // console.log("Register data:", formData);
-    const response = await register(formData);
+    try {
+      const response = await register(formData);
 
-    if (response.status === 201) {
-      await alertSucces("Registrasi Berhasil");
-      navigate("/login");
-    } else {
-      await alertError("Registrasi Gagal");
+      if (response.status === 201) {
+        await alertSucces("Registrasi Berhasil");
+        navigate("/login");
+      } else {
+        await alertError("Registrasi Gagal");
+      }
+    } catch (error) {
+      console.error(error);
+
+      // Tangkap error dari backend
+      if (error.response?.status === 400 && error.response?.data?.error) {
+        const errorMessage = error.response.data.error;
+
+        // Mapping error message ke field yang sesuai
+        if (errorMessage.toLowerCase().includes("nama")) {
+          setErrors({ nama: errorMessage });
+        } else if (errorMessage.toLowerCase().includes("email")) {
+          setErrors({ email: errorMessage });
+        } else if (errorMessage.toLowerCase().includes("confirm password")) {
+          setErrors({ confirmPassword: errorMessage });
+        } else if (errorMessage.toLowerCase().includes("password")) {
+          setErrors({ password: errorMessage });
+        } else {
+          await alertError(errorMessage);
+        }
+      } else {
+        await alertError("Registrasi Gagal");
+      }
     }
   };
 
@@ -73,9 +105,14 @@ const Register = () => {
                   value={formData.nama}
                   onChange={handleChange}
                   placeholder="Masukkan nama..."
-                  className="w-full h-12 px-4 rounded-lg border border-black/20 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  className={`w-full h-12 px-4 rounded-lg border ${
+                    errors.nama ? "border-red-500" : "border-black/20"
+                  } text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
                   required
                 />
+                {errors.nama && (
+                  <p className="text-red-500 text-sm mt-1">{errors.nama}</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -92,9 +129,14 @@ const Register = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Masukkan email..."
-                  className="w-full h-12 px-4 rounded-lg border border-black/20 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  className={`w-full h-12 px-4 rounded-lg border ${
+                    errors.email ? "border-red-500" : "border-black/20"
+                  } text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
                   required
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -119,9 +161,14 @@ const Register = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Masukkan password..."
-                  className="w-full h-12 px-4 rounded-lg border border-black/20 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  className={`w-full h-12 px-4 rounded-lg border ${
+                    errors.password ? "border-red-500" : "border-black/20"
+                  } text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
                   required
                 />
+                {errors.password && (
+                  <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -140,9 +187,18 @@ const Register = () => {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   placeholder="Konfirmasi password..."
-                  className="w-full h-12 px-4 rounded-lg border border-black/20 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  className={`w-full h-12 px-4 rounded-lg border ${
+                    errors.confirmPassword
+                      ? "border-red-500"
+                      : "border-black/20"
+                  } text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
                   required
                 />
+                {errors.confirmPassword && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.confirmPassword}
+                  </p>
+                )}
               </div>
 
               <button
