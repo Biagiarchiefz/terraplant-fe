@@ -13,7 +13,7 @@ const Checkout = () => {
   });
 
   const user = useAuthStore((state) => state.user);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -35,16 +35,18 @@ const Checkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Form Data:", formData);
-    const response = await checkout(formData);
-    // console.log(response);
-    if(response.status == 200) {
-      await alertSucces("Pembayaran Berhasil")
-      navigate("/order-list")
-    } else {
-      await alertError("Barang gagal di checkout")
+    try {
+      const response = await checkout(formData);
+      if (response.status == 200) {
+        await alertSucces("Pembayaran Berhasil");
+        navigate("/order-list");
+      }
+    } catch (error) {
+      // Ambil pesan error dari response backend
+      const errorMessage =
+        error.response?.data?.error || "Barang gagal di checkout";
+      await alertError(errorMessage);
     }
-
   };
 
   const fetchCart = async () => {
@@ -85,7 +87,7 @@ const Checkout = () => {
                         onChange={handleInputChange}
                         placeholder="Masukkan nama lengkap Anda"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006850] focus:border-transparent"
                       />
                     </div>
                     <div>
@@ -99,7 +101,7 @@ const Checkout = () => {
                         onChange={handleInputChange}
                         placeholder="Masukkan nomor telepon Anda"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006850] focus:border-transparent"
                       />
                     </div>
                   </div>
@@ -115,7 +117,7 @@ const Checkout = () => {
                       onChange={handleInputChange}
                       placeholder="Alamat lengkap, Jalan, RT/RW"
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006850] focus:border-transparent"
                     />
                   </div>
 
@@ -131,7 +133,7 @@ const Checkout = () => {
                         onChange={handleInputChange}
                         placeholder="Kota"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006850] focus:border-transparent"
                       />
                     </div>
                     <div>
@@ -145,7 +147,7 @@ const Checkout = () => {
                         onChange={handleInputChange}
                         placeholder="Provinsi"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006850] focus:border-transparent"
                       />
                     </div>
                     <div>
@@ -159,7 +161,7 @@ const Checkout = () => {
                         onChange={handleInputChange}
                         placeholder="Kode Pos"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006850] focus:border-transparent"
                       />
                     </div>
                   </div>
@@ -181,7 +183,7 @@ const Checkout = () => {
                       onChange={handleInputChange}
                       className="w-4 h-4 "
                     />
-                    <CreditCard className="w-6 h-6 text-gray-400 group-hover:text-green-600 transition-colors" />
+                    <CreditCard className="w-6 h-6 text-gray-400 group-hover:text-[#006850] transition-colors" />
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-gray-900">
                         Kartu Kredit
@@ -201,7 +203,7 @@ const Checkout = () => {
                       onChange={handleInputChange}
                       className="w-4 h-4"
                     />
-                    <Wallet className="w-6 h-6 text-gray-400 transition-colors" />
+                    <Wallet className="w-6 h-6 text-gray-400 group-hover:text-[#006850] transition-colors" />
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-gray-900">
                         E-Wallet
@@ -221,7 +223,7 @@ const Checkout = () => {
                       onChange={handleInputChange}
                       className="w-4 h-4"
                     />
-                    <Building2 className="w-6 h-6 text-gray-400 transition-colors" />
+                    <Building2 className="w-6 h-6 text-gray-400 group-hover:text-[#006850] transition-colors" />
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-gray-900">
                         Transfer Bank
@@ -282,16 +284,11 @@ const Checkout = () => {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Diskon</span>
-                    <span className="font-semibold text-gray-900">
-                      0
-                    </span>
+                    <span className="font-semibold text-gray-900">0</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Pengiriman</span>
-                    <span className="font-semibold">
-                    
-                      Gratis
-                    </span>
+                    <span className="font-semibold">Gratis</span>
                   </div>
                 </div>
 
