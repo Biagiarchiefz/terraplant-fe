@@ -36,17 +36,17 @@ const OrderList = () => {
 
           <div className="flex items-center gap-3 sm:gap-4">
             <Filter className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
-            <div className="relative w-full md:w-48">
+            <div className="relative w-auto">
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full px-3 sm:px-4 py-2 pr-8 sm:pr-10 border border-gray-300 rounded-lg bg-white text-gray-900 text-sm sm:text-base
+                className="w-auto px-3 sm:px-4 py-2 pr-8 sm:pr-10 border border-gray-300 rounded-lg bg-white text-gray-900 text-sm sm:text-base
                focus:outline-none focus:ring-2 focus:ring-[#034032]
-               appearance-none"
+               appearance-none "
               >
                 <option value="all">Semua Status</option>
                 <option value="pembayaran">Menunggu Pembayaran</option>
-                <option value="diproses" >Diproses</option>
+                <option value="diproses">Diproses</option>
                 <option value="dikirim">Dikirim</option>
                 <option value="selesai">Selesai</option>
               </select>
