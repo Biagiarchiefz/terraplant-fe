@@ -8,7 +8,7 @@ import {
   X,
 } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router";
-import logo from "../assets/images/logoTerra.png"
+import logo from "../assets/images/logoTerra.png";
 import useAuthStore from "../store/useAuthStore";
 import useCartStore from "../store/useCartStore";
 // import useAuthStore from "../store/useAuthStore";
@@ -116,10 +116,7 @@ const Navbar = () => {
                 showSearch ? "md:opacity-100 opacity-0" : "opacity-100"
               }`}
             >
-              {/* <h1 className="flex items-center text-2xl font-bold text-[#B1B1B]">
-                TerraPlant
-              </h1> */}
-              <img src={logo} alt="" className="w-[150px]"/>
+              <img src={logo} alt="" className="w-[150px]" />
             </div>
 
             {/*     Dektop Nav      */}
@@ -176,7 +173,7 @@ const Navbar = () => {
                     : "#1B1B1B",
                 }}
               >
-                {/* Search Input with Animation */}
+                {/* Search Input dengan animasi */}
                 <div className="relative flex items-center">
                   <form
                     onSubmit={handleSearch}
@@ -241,7 +238,7 @@ const Navbar = () => {
               </div>
             )}
 
-            {/*     Mobile menu nav before click   */}
+            {/*     Mobile menu nav sebelum click   */}
             <div
               className="md:hidden flex gap-4 items-center"
               style={{
@@ -296,7 +293,7 @@ const Navbar = () => {
               </button>
             </div>
 
-            {/*    after burger menu click   */}
+            {/*    setelah burger menu di click   */}
             <div
               className={`fixed top-0 left-0 w-full h-screen bg-white text-base flex flex-col md:hidden items-center justify-center gap-6 font-medium text-gray-800 transition-all duration-500 ${
                 isMenuOpen ? "translate-x-0" : "-translate-x-full"

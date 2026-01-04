@@ -19,6 +19,7 @@ import {
   Leaf,
 } from "lucide-react";
 import { alertConfirm, alertSucces } from "../lib/alert";
+import { formatDate } from "../utils/formatter";
 
 const statusConfig = {
   pembayaran: {
@@ -116,19 +117,7 @@ const OrderDetail = () => {
     }
   };
 
-  // Format tanggal
-  const formatDate = (isoDate) => {
-    try {
-      const date = new Date(isoDate);
-      return date.toLocaleDateString("id-ID", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      });
-    } catch (error) {
-      return "Invalid Date";
-    }
-  };
+
 
   // Format payment method
   const formatPaymentMethod = (method) => {
@@ -248,7 +237,7 @@ const OrderDetail = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
-          {/* Left Column - Items & Summary */}
+          {/* kolom kiri - Items */}
           <div className="md:col-span-2 space-y-4 sm:space-y-6">
             {/* Order Items */}
             <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200">
@@ -286,7 +275,7 @@ const OrderDetail = () => {
               </div>
             </div>
 
-            {/* Payment Summary */}
+            {/* ringkasan pembayaran */}
             <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200">
               <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                 Ringkasan Pembayaran
@@ -331,7 +320,7 @@ const OrderDetail = () => {
             </div>
           </div>
 
-          {/* Right Column - Shipping & Contact */}
+          {/* kolom kanan - Contact info pengiriman */}
           <div className="space-y-4 sm:space-y-6">
             {/* Shipping Info */}
             <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200">

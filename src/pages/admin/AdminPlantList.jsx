@@ -7,6 +7,7 @@ import {
   deletePlant,
   updatePlant,
 } from "../../services/plant.services";
+import { formatPrice } from "../../utils/formatter";
 
 const AdminPlantList = () => {
   const plants = usePlantListStore((state) => state.plants);
@@ -86,14 +87,6 @@ const AdminPlantList = () => {
 
   const handleRefresh = async () => {
     fetchPlants();
-  };
-
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      minimumFractionDigits: 0,
-    }).format(price);
   };
 
   const renderRow = (plants) => (

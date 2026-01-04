@@ -62,13 +62,13 @@ const Cart = () => {
   return (
     <div className="min-h-screen bg-gray-50 px-4 sm:px-50 py-6 mt-15">
       <div className="grid grid-cols-1 lg:grid-cols-[3fr_1.5fr] gap-6 lg:gap-12">
-        {/* ===== TABLE AREA ===== */}
+        {/*  TABLE  */}
         <div className="overflow-hidden">
-          {/* ===== HEADER ===== */}
+          {/*  HEADER */}
           <div className="hidden lg:grid grid-cols-[4fr_1fr_1fr] px-4 py-3 font-semibold">
-            <h1>Product</h1>
-            <h1 className="text-center">Number</h1>
-            <h1 className="text-right">Amount</h1>
+            <h1>Tanaman</h1>
+            <h1 className="text-center">Jumlah</h1>
+            <h1 className="text-right">Total</h1>
           </div>
 
           {/* Baris */}
@@ -94,7 +94,7 @@ const Cart = () => {
                 <div className="flex flex-col lg:contents">
                   <h1>{cart.nama}</h1>
                   <h1 className="text-sm text-gray-500">
-                    Rp.{cart.harga.toLocaleString()}
+                    Rp.{cart.harga?.toLocaleString()}
                   </h1>
                 </div>
               </div>
@@ -136,7 +136,7 @@ const Cart = () => {
           ))}
         </div>
 
-        {/* ===== SIDEBAR TOTAL ===== */}
+        {/*  SIDEBAR TOTAL */}
         <div className="bg-gray-100 mt-0 lg:mt-13">
           <div className="border border-black/30 flex">
             <input
@@ -154,7 +154,7 @@ const Cart = () => {
             <p>Rp.{carts.grandTotal.toLocaleString()}</p>
           </div>
           <div className="border border-black/30 flex justify-between p-2">
-            <h1 className="font-bold">Total cost</h1>
+            <h1 className="font-bold">Total Harga</h1>
             <p className="font-bold">Rp.{carts.grandTotal.toLocaleString()}</p>
           </div>
           <div className="border border-black/30 flex justify-center items-center p-3">
@@ -172,7 +172,7 @@ const Cart = () => {
             to="/catalog"
             className="border cursor-pointer px-8 sm:px-20 py-2 w-full sm:w-auto text-center"
           >
-            To the catalog
+            Kembali ke Catalog
           </Link>
 
           <button className="border px-8 sm:px-20 py-2 bg-[#1B1B1B] text-white w-full sm:w-auto">

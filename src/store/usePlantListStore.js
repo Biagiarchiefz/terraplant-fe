@@ -10,7 +10,7 @@ export const usePlantListStore = create((set) => ({
       const response = await plantList();
       const plantsData = response.data.data.map((plant) => ({
         ...plant,
-        image: plant.gambar?.[0] || plant.image, // Support both formats
+        image: plant.gambar?.[0] || plant.image, 
       }));
       set({ plants: plantsData });
     } catch (error) {

@@ -18,6 +18,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { alertConfirm, alertSucces } from "../../lib/alert";
+import { formatDate } from "../../utils/formatter";
 
 const statusConfig = {
   pembayaran: {
@@ -82,18 +83,7 @@ const AdminOrdersDetail = () => {
     alert(`${label} berhasil disalin!`);
   };
 
-  const formatDate = (isoDate) => {
-    try {
-      const date = new Date(isoDate);
-      return date.toLocaleDateString("id-ID", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      });
-    } catch (error) {
-      return "Invalid Date";
-    }
-  };
+
 
   const formatPaymentMethod = (method) => {
     const methods = {

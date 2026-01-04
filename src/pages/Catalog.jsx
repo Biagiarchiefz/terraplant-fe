@@ -48,13 +48,13 @@ const Catalog = () => {
     return filtered;
   }, [plants, selectedCategory, searchQuery]);
 
-  // Pagination calculations
+  // Pagination perhitungan
   const totalPages = Math.ceil(filteredPlants.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const currentPlants = filteredPlants.slice(startIndex, endIndex);
 
-  // Reset to page 1 when filters change
+  // reset ke page 1 ketika filter berubah
   useMemo(() => {
     setCurrentPage(1);
   }, [selectedCategory, searchQuery]);
@@ -114,7 +114,6 @@ const Catalog = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Search already handled by useMemo
   };
 
   return (

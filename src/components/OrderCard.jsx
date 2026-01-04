@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import plane1 from "../assets/images/plants1.webp";
 import { Link } from "react-router";
+import { formatDate } from "../utils/formatter";
 
 
 const statusConfig = {
@@ -41,19 +42,6 @@ const OrderCard = ({ order }) => {
   const status = statusConfig[order.status] || statusConfig.pembayaran;
   const StatusIcon = status.icon;
 
-  // Format tanggal dari ISO string
-  const formatDate = (isoDate) => {
-    try {
-      const date = new Date(isoDate);
-      return date.toLocaleDateString("id-ID", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      });
-    } catch (error) {
-      return "Invalid Date";
-    }
-  };
 
   return (
     <Link to={`/orders/${order.id || ""}`}>

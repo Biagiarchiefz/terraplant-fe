@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import DataTable from "../../components/admin/DataTable";
 import { useNavigate } from "react-router";
 import { useOrderListAdminStore } from "../../store/useOrderListAdminStore";
+import { formatDate, formatPrice } from "../../utils/formatter";
 
 const AdminOrderList = () => {
   const orderList = useOrderListAdminStore((state) => state.orderListAdmin);
@@ -31,23 +32,10 @@ const AdminOrderList = () => {
   };
 
   const handleRefresh = async () => {
-    console.log("Refresh orders");
-    // Di sini bisa fetch data dari API
+      fetchOrdersUser();
   };
 
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      minimumFractionDigits: 0,
-    }).format(price);
-  };
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const options = { day: "numeric", month: "long", year: "numeric" };
-    return date.toLocaleDateString("id-ID", options);
-  };
 
   const getStatusConfig = (status) => {
     const statusLower = status?.toLowerCase();

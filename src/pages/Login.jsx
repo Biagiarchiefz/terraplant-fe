@@ -11,6 +11,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+
   const [errors, setErrors] = useState({});
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
@@ -22,6 +23,7 @@ const Login = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+    
     // Clear error untuk field yang sedang diubah
     if (errors[e.target.name]) {
       setErrors({
@@ -70,6 +72,7 @@ const Login = () => {
     }
   };
 
+  // inisialiasi google login hook
   const googleLoginHandler = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       setIsGoogleLoading(true);

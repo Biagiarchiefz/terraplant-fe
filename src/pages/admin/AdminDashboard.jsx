@@ -97,7 +97,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="space-y-4 md:space-y-6 p-4 md:p-6">
-      {/* Additional Stats - Original Stats Grid */}
+      {/* statistik */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {stats.map((stat, index) => (
           <div
@@ -127,7 +127,7 @@ const AdminDashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
-        {/* Recent Orders */}
+        {/* Orders terbaru */}
         <div className="lg:col-span-2 bg-white rounded-lg shadow-sm p-4 md:p-6">
           <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-4">
             Pesanan Terbaru
@@ -211,7 +211,7 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Top Selling Plants */}
+        {/* Top Sell Plants */}
         <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
           <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-4">
             Tanaman Terlaris

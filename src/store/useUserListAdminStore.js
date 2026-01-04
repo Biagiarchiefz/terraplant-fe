@@ -27,7 +27,6 @@ export const useUserListAdminStore = create((set) => ({
     set({ loading: true });
 
     try {
-      // Send role as an object
       const response = await updateUserByAdmin(id, { role });
 
       // Update local state after successful update

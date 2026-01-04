@@ -22,6 +22,7 @@ import useCartStore from "./store/useCartStore";
 import Contact from "./pages/Contact";
 
 function App() {
+  // initAuth digunakan agar user tidak perlu login ulang setiap kali refresh halaman
   const initAuth = useAuthStore((state) => state.initAuth);
   const user = useAuthStore((state) => state.user);
   const fetchCart = useCartStore((state) => state.fetchCart);
@@ -71,8 +72,6 @@ function App() {
           </Route>
         </Routes>
       </div>
-
-      {/* <Footer /> */}
     </div>
   );
 }

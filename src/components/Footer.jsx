@@ -13,7 +13,7 @@ const Footer = () => {
     <footer className="bg-footer text-footer-foreground py-15 px-4 bg-[#1B1B1B] text-[#F5F5F5]">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between gap-10 md:gap-40 items-center">
-          {/* Brand and Social */}
+          {/* Brand dan Social media */}
           <div className="lg:col-span-1 flex justify-between items-center w-full md:flex-col">
             <h2 className="text-3xl font-bold md:mb-4">TerraPlant</h2>
             <div className="flex gap-3">
@@ -27,7 +27,7 @@ const Footer = () => {
           </div>
 
           <div className="flex md:flex-col lg:col-span-1 gap-5 mt-5 order-2 md:order-1 w-full justify-between">
-            {/* Navigation Links */}
+            {/* Navigasi Links */}
             <div className="">
               <nav className="flex flex-col md:flex-row gap-4">
                 {navigationLinks.map((link, index) => (
@@ -42,7 +42,7 @@ const Footer = () => {
               </nav>
             </div>
 
-            {/* App Downloads and Payment */}
+            {/* App Downloads dan Payment */}
             <div className="flex flex-col md:flex-row gap-3 items-center ">
               <img
                 src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
@@ -68,7 +68,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Contact Information */}
+          {/* contact */}
           <div className="lg:col-span-1 space-y-3 border-l pl-3 flex flex-col order-1 md:order-2 w-full gap-2 md:gap-0">
             <div className="flex items-center gap-2 text-md">
               <Phone size={16} className="text-footer-muted" />
